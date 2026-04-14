@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Cheat Sheet — netzstrategen intern</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;background:#f5f5f5;min-height:100vh;}
+.wrapper{max-width:960px;margin:32px auto;background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);}
+.header{background:#253FE4;padding:24px 32px 20px;}
+.header h1{color:#fff;font-size:20px;font-weight:800;margin-bottom:3px;}
+.header p{color:rgba(255,255,255,0.72);font-size:10.5px;}
+.badge{display:inline-block;background:#F4E404;color:#000;font-size:9px;font-weight:800;padding:2px 6px;border-radius:2px;margin-left:7px;vertical-align:middle;}
+.tabs{display:flex;background:#f0f0f0;padding:0 32px;border-bottom:2px solid #ddd;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:8px 11px;font-size:10.5px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;color:#999;flex-shrink:0;}
+.tab.active{color:#253FE4;border-bottom-color:#253FE4;}
+.tab:hover:not(.active){color:#222;}
+.tab-intro{background:#f7f7f7;border-bottom:1px solid #e8e8e8;padding:8px 32px;}
+.tab-intro p{font-size:10.5px;color:#555;line-height:1.5;}
+.tab-intro strong{color:#253FE4;}
+.content{padding:18px 32px 14px;min-height:260px;background:#fff;}
+.sec{display:none;}.sec.active{display:block;}
+.nav-bar{display:flex;align-items:center;padding:10px 32px;border-top:1px solid #e8e8e8;background:#f7f7f7;gap:12px;}
+.nav-btn{background:#fff;border:1px solid #ddd;border-radius:3px;padding:6px 14px;font-size:10.5px;font-weight:700;cursor:pointer;color:#333;transition:background 0.12s,border-color 0.12s;white-space:nowrap;flex-shrink:0;}
+.nav-btn:hover:not(:disabled){background:#253FE4;color:#fff;border-color:#253FE4;}
+.nav-btn:disabled{opacity:0.3;cursor:default;}
+.progress-wrap{flex:1;height:6px;background:#e0e0e0;border-radius:3px;overflow:hidden;}
+.progress-bar{height:100%;background:#253FE4;border-radius:3px;transition:width 0.25s ease;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;}
+.card{background:#f2f2f2;border-radius:3px;padding:11px 13px;}
+.card h3{font-size:11px;font-weight:700;color:#253FE4;margin-bottom:6px;}
+.card h4{font-size:10.5px;font-weight:700;color:#333;margin-bottom:4px;margin-top:8px;}
+.card-dark{background:#000;border-radius:3px;padding:11px 13px;}
+.card-dark h3{font-size:11px;font-weight:700;color:#F4E404;margin-bottom:6px;}
+.card-yellow{background:#F4E404;border-radius:3px;padding:11px 13px;}
+.card-yellow h3{font-size:11px;font-weight:700;color:#000;margin-bottom:6px;}
+ul{list-style:none;padding:0;}
+ul li{font-size:10.5px;color:#333;margin-bottom:3px;padding-left:12px;position:relative;line-height:1.45;}
+ul li::before{content:"→";position:absolute;left:0;color:#253FE4;font-weight:800;font-size:10px;}
+.dl li{color:#ccc!important;}.dl li::before{color:#F4E404!important;}
+.yl li{color:#000!important;}.yl li::before{color:#000!important;}
+p.desc{font-size:10.5px;color:#444;line-height:1.5;}
+.ex{background:#fff;border:1px solid #e0e0e0;border-left:3px solid #253FE4;padding:6px 9px;margin-top:6px;font-size:10px;color:#444;line-height:1.45;border-radius:0 3px 3px 0;}
+.ex b{color:#253FE4;}
+.tip{background:#f2f2f2;border-left:3px solid #F4E404;padding:6px 9px;font-size:10px;color:#333;line-height:1.45;margin-top:6px;}
+.row{display:flex;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #ebebeb;align-items:flex-start;}
+.row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ico{width:26px;height:26px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9.5px;font-weight:800;color:#fff;background:#253FE4;}
+.rb h4{font-size:10.5px;font-weight:700;color:#000;margin-bottom:1px;}
+.rb p{font-size:10px;color:#555;line-height:1.4;}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px;}
+.chip{background:#f2f2f2;border:1px solid #ddd;border-radius:2px;padding:2px 6px;font-size:10px;font-weight:700;color:#333;}
+.chip.on{background:#253FE4;color:#fff;border-color:#253FE4;}
+.chip.pending{background:#fff;border:1px dashed #999;color:#999;}
+.bottombar{height:5px;background:#000;width:100%;}
+code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-family:monospace;}
+.big-label{font-size:9px;font-weight:800;color:#999;letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px;}
+.compare-row{display:grid;grid-template-columns:80px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;}
+.compare-row:last-child{border-bottom:none;}
+.compare-cell{padding:7px 8px;font-size:10px;color:#333;line-height:1.4;border-right:1px solid #eee;}
+.compare-cell:last-child{border-right:none;}
+.compare-head{background:#253FE4;color:#fff!important;font-weight:700;font-size:10px;}
+.compare-label{font-weight:700;color:#253FE4;background:#f2f2f2;}
+.bot-box{background:#000;border-radius:3px;padding:14px 16px;margin-bottom:11px;}
+.bot-box h3{color:#F4E404;font-size:12px;font-weight:800;margin-bottom:6px;}
+.footer-info{text-align:center;font-size:9px;color:#999;padding:8px;background:#f7f7f7;border-top:1px solid #eee;}
+/* Compare table 5-col for model comparison */
+.cmp5{display:grid;grid-template-columns:100px 1fr 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;}
+.cmp5:last-child{border-bottom:none;}
+.cmp5 .compare-cell{border-right:1px solid #eee;}
+.cmp5 .compare-cell:last-child{border-right:none;}
+/* Decision table */
+.dec-row{display:grid;grid-template-columns:1fr 80px;gap:0;border-bottom:1px solid #eee;padding:6px 8px;font-size:10px;}
+.dec-row:last-child{border-bottom:none;}
+.dec-badge{display:inline-block;padding:2px 6px;border-radius:2px;font-size:9px;font-weight:800;}
+.dec-chat{background:#253FE4;color:#fff;}
+.dec-cowork{background:#F4E404;color:#000;}
+.dec-both{background:#000;color:#fff;}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+  <h1>Claude Cheat Sheet <span class="badge">netzstrategen intern</span></h1>
+  <p>Vollständige Übersicht · Features, Workflows, Beispiele · Claude Sonnet 4.6 · April 2026</p>
+</div>
+<div class="tabs" id="tabbar">
+  <div class="tab active" onclick="sw(0)">Überblick</div>
+  <div class="tab" onclick="sw(1)">Chat / Cowork / Code</div>
+  <div class="tab" onclick="sw(2)">Plugins &amp; Add-ins</div>
+  <div class="tab" onclick="sw(3)">Projekte</div>
+  <div class="tab" onclick="sw(4)">Artefakte &amp; Docs</div>
+  <div class="tab" onclick="sw(5)">Skills &amp; CI</div>
+  <div class="tab" onclick="sw(6)">Konnektoren</div>
+  <div class="tab" onclick="sw(7)">Tools &amp; Suche</div>
+  <div class="tab" onclick="sw(8)">Gedächtnis</div>
+  <div class="tab" onclick="sw(9)">Einstellungen</div>
+  <div class="tab" onclick="sw(10)">NETZ-BOT</div>
+  <div class="tab" onclick="sw(11)">Prompt-Tipps</div>
+  <div class="tab" onclick="sw(12)">Account &amp; Team-Setup</div>
+  <div class="tab" onclick="sw(13)">Chat- vs. Cowork-Projekte</div>
+  <div class="tab" onclick="sw(14)">Modelle im Vergleich</div>
+  <div class="tab" onclick="sw(15)">Geplante Aufgaben</div>
+</div>
+<div class="tab-intro"><p id="intro-text"></p></div>
+<div class="content">
+
+<!-- TAB 0: Überblick -->
+<div class="sec active" id="s0">
+  <div class="g2" style="margin-bottom:11px;">
+    <div class="card"><h3>Was ist Claude?</h3><p class="desc">KI-Assistent von Anthropic. Aktuelles Modell: <strong>Claude Sonnet 4.6</strong>. Verfügbar via claude.ai (Web/Mobile/Desktop), API, Claude Code und als Office-Add-in (Excel, PowerPoint).</p><div class="tip">Modelle: <strong>Opus 4.6</strong> (komplex) · <strong>Sonnet 4.6</strong> (Standard) · <strong>Haiku 4.5</strong> (schnell/günstig) → Details: Tab 15</div></div>
+    <div class="card"><h3>Kernfähigkeiten</h3><ul><li>Texte, Analysen, Präsentationen, Berichte erstellen</li><li>Code schreiben, debuggen, automatisieren</li><li>Daten analysieren &amp; visualisieren</li><li>Interne Tools verbinden (Notion, Asana, Google…)</li><li>Web-Recherche &amp; aktuelle Informationen</li><li>Bilder verstehen, beschreiben, einbetten</li></ul></div>
+  </div>
+  <div class="g4">
+    <div class="card"><h3>claude.ai</h3><p class="desc" style="font-size:10px;">Gesprächs-Interface, Artefakte, Konnektoren, Gedächtnis, Projekte</p></div>
+    <div class="card-dark"><h3>Claude Cowork</h3><p style="color:#ccc;font-size:10px;line-height:1.4;">Desktop-App: agentenbasiert mit Dateien, Ordnern &amp; Apps</p></div>
+    <div class="card"><h3>Plugins &amp; Add-ins</h3><p class="desc" style="font-size:10px;">Claude direkt in Excel &amp; PowerPoint; Cowork-Plugins (beta)</p></div>
+    <div class="card"><h3>Claude Code</h3><p class="desc" style="font-size:10px;">CLI-Tool für Entwickler: agentenbasiertes Coding im Terminal</p></div>
+  </div>
+</div>
+
+<!-- TAB 1: Chat / Cowork / Code -->
+<div class="sec" id="s1">
+  <div style="margin-bottom:11px;border-radius:3px;overflow:hidden;">
+    <div class="compare-row"><div class="compare-cell compare-head"></div><div class="compare-cell compare-head">claude.ai (Chat)</div><div class="compare-cell compare-head">Claude Cowork</div><div class="compare-cell compare-head">Claude Code</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">Zugang</div><div class="compare-cell">Web, Mobile, Desktop-App</div><div class="compare-cell">Desktop-App (Mac/Windows)</div><div class="compare-cell">Terminal / CLI</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">Für wen</div><div class="compare-cell">Alle Mitarbeiter</div><div class="compare-cell">Knowledge Worker, Ops, Marketing</div><div class="compare-cell">Entwickler, DevOps</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">Interaktion</div><div class="compare-cell">Gesprächsbasiert: Du fragst, Claude antwortet</div><div class="compare-cell">Agentenbasiert: Claude handelt autonom auf dem Computer</div><div class="compare-cell">Terminal-Befehle, agentenbasiertes Coding</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">Dateizugriff</div><div class="compare-cell">Nur hochgeladene Dateien im Chat</div><div class="compare-cell">Direkt auf lokale Dateien, Ordner &amp; Apps</div><div class="compare-cell">Komplette Codebase im Kontext</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">Stärken</div><div class="compare-cell">Texte, Dokumente, Recherche, Konnektoren</div><div class="compare-cell">Lokale Dateien verarbeiten, app-übergreifend agieren</div><div class="compare-cell">Codebases analysieren, Bugs fixen, Refactoring</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">Plan</div><div class="compare-cell">Free / Pro / Max / Team / Enterprise</div><div class="compare-cell">Pro / Max / Team / Enterprise</div><div class="compare-cell">$200/Monat (eigener Plan)</div></div>
+  </div>
+  <div class="tip" style="margin-bottom:11px;"><strong>Faustregel:</strong> Wenn du etwas ‚besprechen' oder ‚generieren' willst → Chat. Wenn Claude etwas auf deinem Computer ‚tun' soll → Cowork. → Mehr Details: <a href="#" onclick="sw(13);return false;">Tab 14 — Chat- vs. Cowork-Projekte</a></div>
+  <div class="g3">
+    <div class="card"><h3>claude.ai — Wann?</h3><ul><li>Täglich für Texte, Mails, Meetings</li><li>Kundenpräsentationen im CI</li><li>Notion, Asana, Google aus Chat steuern</li><li>Recherche &amp; Deep Research</li></ul><div class="ex"><b>Beispiel:</b> „Erstell eine netzstrategen-PPT über SEO-Trends mit 8 Folien."</div></div>
+    <div class="card-dark"><h3>Cowork — Wann?</h3><ul class="dl"><li>Lokale Dateien lesen &amp; bearbeiten</li><li>Excel → PPT in einem Schritt</li><li>Wiederkehrende Tasks automatisieren</li><li>Dateien sortieren, konvertieren</li></ul><div class="ex" style="border-color:#F4E404;"><b style="color:#F4E404;">Beispiel:</b> „Öffne Ordner ‚Kundenberichte', fass alle PDFs zusammen und erstell eine Übersichts-Excel."</div></div>
+    <div class="card"><h3>Claude Code — Wann?</h3><ul><li>Repositories analysieren &amp; refactorn</li><li>Bugs automatisch finden &amp; fixen</li><li>Security-Scans auf Codebases</li><li>CI/CD-Integration, Terminal-Workflows</li></ul><div class="ex"><b>Beispiel:</b> <code>claude "Analysiere das Repo auf Security-Lücken"</code></div></div>
+  </div>
+</div>
+
+<!-- TAB 2: Plugins & Add-ins -->
+<div class="sec" id="s2">
+  <div class="g2" style="margin-bottom:11px;">
+    <div class="card"><h3>Claude in Excel <span style="font-size:9px;color:#999;">(Pro+)</span></h3><ul><li>Formeln erklären, Daten analysieren, Modelle erstellen — mit Zell-Referenzen</li><li>Echtzeit-Daten aus LSEG und Moody's integrierbar</li><li>Shortcut: <code>Ctrl+Alt+C</code></li></ul><div class="ex"><b>Beispiel:</b> „Was treibt die Umsatzprognose in Q3? Erhöhe das Wachstum um 2% und zeig den Impact auf alle abhängigen Formeln."</div></div>
+    <div class="card"><h3>Claude in PowerPoint <span style="font-size:9px;color:#999;">(Max+, beta)</span></h3><ul><li>Folien aus Prompts generieren — liest Slide Master automatisch</li><li>Nutzt vorhandene Layouts, Fonts &amp; Farben</li><li>Seit März 2026: teilt Kontext mit Excel</li></ul><div class="tip">→ Seit März 2026: Excel + PPT teilen Kontext. Excel-Analyse → direkt als PPT, in einem Durchgang.</div></div>
+  </div>
+  <div class="g3">
+    <div class="card-dark"><h3>Cowork-Plugins <span style="font-size:9px;color:#999;">(Team/Enterprise)</span></h3><ul class="dl"><li>HR, Design, Engineering, Operations</li><li>Brand Voice, Financial Analysis</li><li>Investment Banking, Equity Research</li><li>Private Equity, Wealth Management</li></ul></div>
+    <div class="card"><h3>Claude in Chrome <span style="font-size:9px;color:#999;">(beta)</span></h3><ul><li>Browser-Agent: Claude navigiert Webseiten</li><li>Füllt Formulare aus, extrahiert Daten</li><li>Automatisiert Browser-Workflows</li></ul><div class="ex"><b>Beispiel:</b> „Sammle Profile der Top-10-Entscheider bei [Firma] auf LinkedIn."</div></div>
+    <div class="card"><h3>Eigene Plugins (Customize-Menü)</h3><ul><li>Skills + Connectors + Prompts bündeln</li><li>Teamweit teilbar, als 1-Klick-Aktion</li><li>Jeder Skill = MCP-Konnektor</li></ul><div class="ex"><b>Beispiel:</b> Plugin „NETZ-Angebot": CI-Skill + Vorlage = 1 Klick.</div></div>
+  </div>
+</div>
+
+<!-- TAB 3: Projekte -->
+<div class="sec" id="s3">
+  <div class="g2" style="margin-bottom:11px;">
+    <div class="card"><h3>Was Projekte können</h3><ul><li>Eigene System-Instruktionen (Ton, Rolle, Regeln)</li><li>Dateien dauerhaft im Kontext hinterlegen</li><li>Alle Chats teilen denselben Kontext</li><li>Teamweiter Zugriff (Team/Enterprise)</li><li>Konnektoren &amp; Skills pro Projekt konfigurieren</li><li>Chat-Verlauf bleibt projektgebunden auffindbar</li></ul><div class="ex"><b>Beispiel:</b> Projekt „Kunde XY": Briefing + CI-Regeln + KPIs hinterlegen → alle arbeiten mit demselben Kontext.</div></div>
+    <div class="card"><h3>Wann Projekte nutzen?</h3><ul><li>Laufende Kundenprojekte mit mehreren Beteiligten</li><li>Abteilungs-Workflows (z.B. „SEO-Team")</li><li>Wiederkehrende Berichte &amp; Reportings</li><li>Interne Wissensdatenbanken (FAQs, Guidelines)</li><li>Onboarding neuer Mitarbeiter</li></ul><div class="tip">→ Projekte ersetzen „Copy-Paste-Kontext". Einmal einrichten, immer verfügbar — für alle. Setup-Anleitung: <a href="#" onclick="sw(12);return false;">Tab 13</a></div></div>
+  </div>
+  <div class="g3">
+    <div class="card"><h3>Projekt-Instruktionen</h3><ul><li>Rolle, Ton, Format, Sprache festlegen</li><li>Do's &amp; Don'ts hinterlegen</li><li>Wird bei jedem Chat im Projekt aktiv</li></ul><div class="ex"><b>Beispiel:</b> „Du bist SEO-Experte bei netzstrategen. Antworte datengestützt, mit konkreten Maßnahmen."</div></div>
+    <div class="card"><h3>Projekt-Dateien</h3><ul><li>PDFs, Docs, CSVs, Bilder hochladbar</li><li>Immer im Kontext — kein Upload nötig</li><li>Ideal: Briefings, Guidelines, Preislisten</li></ul><div class="ex"><b>Beispiel:</b> Kunden-Briefing + CI-Styleguide + Preisliste als Projekt-Dateien.</div></div>
+    <div class="card"><h3>Klarheitsfragen</h3><ul><li>Claude fragt bei Unklarheiten aktiv nach</li><li>Spart Iteration — lieber 1 Frage mehr</li><li>In Projekt-Instruktionen steuerbar</li></ul><div class="ex"><b>Beispiel:</b> „Frag immer nach Zielgruppe und Format, bevor du einen Text erstellst."</div></div>
+  </div>
+</div>
+
+<!-- TAB 4: Artefakte & Docs -->
+<div class="sec" id="s4">
+  <div class="g4" style="margin-bottom:11px;">
+    <div class="card"><h3>Word (.docx)</h3><p class="desc" style="font-size:10px;">Angebote, Berichte, Memos mit Formatierung. → Skill: <strong>docx</strong></p></div>
+    <div class="card"><h3>Präsentation (.pptx) im CI</h3><p class="desc" style="font-size:10px;">Folien automatisch im netzstrategen-Design. → Skill: <strong>pptx + netzstrategen-ci</strong></p></div>
+    <div class="card"><h3>Excel (.xlsx)</h3><p class="desc" style="font-size:10px;">Auswertungen, Budgetpläne, Tracking-Sheets. → Skill: <strong>xlsx</strong></p></div>
+    <div class="card"><h3>PDF</h3><p class="desc" style="font-size:10px;">Formatierte Dokumente, Zusammenfassungen. → Skill: <strong>pdf</strong></p></div>
+  </div>
+  <div class="g3">
+    <div class="card-dark"><h3>HTML / React / Mermaid</h3><ul class="dl"><li>Interaktive Apps, Dashboards, Kalkulatoren</li><li>React-Komponenten mit State &amp; Charts</li><li>Mermaid für Flowcharts &amp; Sequenzdiagramme</li></ul><div class="ex" style="border-color:#F4E404;"><b style="color:#F4E404;">Beispiel:</b> „Bau einen interaktiven ROI-Rechner als HTML-Datei."</div></div>
+    <div class="card"><h3>Inline-Visualisierungen</h3><ul><li>Flowcharts, Prozessdiagramme, Organigramme</li><li>Charts direkt im Chat-Fenster</li><li>Kein Download nötig</li></ul><div class="ex"><b>Beispiel:</b> „Zeig unseren Lead-Qualifizierungsprozess als Flussdiagramm."</div></div>
+    <div class="card-yellow"><h3>Tipp</h3><ul class="yl"><li>„Erstell mir eine Datei" → herunterladbar</li><li>„Als Artefakt" → renderbar im Chat</li><li>Alle Formate mit netzstrategen-CI formatierbar</li></ul></div>
+  </div>
+</div>
+
+<!-- TAB 5: Skills & CI -->
+<div class="sec" id="s5">
+  <div class="g2" style="margin-bottom:11px;">
+    <div class="card"><h3>netzstrategen CI — Kernregeln</h3>
+      <div style="margin-bottom:6px;"><div class="big-label">Farben</div><div style="display:flex;gap:6px;"><span style="background:#253FE4;color:#fff;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;">#253FE4</span><span style="background:#F4E404;color:#000;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;">#F4E404</span><span style="background:#000;color:#fff;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;">#000</span></div></div>
+      <ul><li>Font: Open Sans (400/600/700/800) — kein ALL CAPS</li><li><strong>Signmark</strong> (Bildmarke) oben rechts — alle Seiten außer Deckblatt</li><li><strong>Vollständiges Logo</strong> NUR auf Deckblättern</li><li>SVG-Nachbau niemals — echte PNG-Dateien einbetten</li><li>Schwarzer Footer-Balken auf hellen Seiten · Pfeil-Bullets</li></ul></div>
+    <div class="card"><h3>Logo-Dateien (pro Chat hochladen)</h3>
+      <div class="row"><div class="ico">PNG</div><div class="rb"><h4>netzstrategen_logo_72dpi_rgb__1_.png</h4><p>Signmark schwarz — helle Hintergründe</p></div></div>
+      <div class="row"><div class="ico" style="background:#000;">PNG</div><div class="rb"><h4>netzstrategen_logo_72dpi_rgb_white.png</h4><p>Signmark weiß — dunkle/blaue BG</p></div></div>
+      <div class="row"><div class="ico">WM</div><div class="rb"><h4>NETZ-Wordmark-Black-523x245.png</h4><p>Volllogo schwarz — Deckblätter hell</p></div></div>
+      <div class="row"><div class="ico" style="background:#000;">WM</div><div class="rb"><h4>NETZ-Wordmark-white-523x245.png</h4><p>Volllogo weiß — Deckblätter dunkel</p></div></div>
+    </div>
+  </div>
+  <div class="card"><h3>Alle verfügbaren Skills</h3>
+    <div class="g4" style="margin-top:6px;">
+      <div><div class="big-label">CI &amp; Design</div><ul><li><code>netzstrategen-ci</code></li><li><code>pptx</code></li><li><code>docx</code></li><li><code>xlsx</code></li><li><code>pdf</code></li><li><code>frontend-design</code></li></ul></div>
+      <div><div class="big-label">Inhalte &amp; Sprache</div><ul><li><code>netzstrategen-corporate-language</code></li><li><code>digital-impact-newsletter</code></li><li><code>wcag-accessibility</code></li></ul></div>
+      <div><div class="big-label">Wissen &amp; Tools</div><ul><li><code>product-self-knowledge</code></li><li><code>tool-advisor</code></li><li><code>skill-creator</code></li><li><code>file-reading</code></li><li><code>pdf-reading</code></li></ul></div>
+      <div><div class="big-label">Speicherorte</div><ul><li><code>/mnt/skills/organization/</code> (intern)</li><li><code>/mnt/skills/public/</code> (allgemein)</li></ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 6: Konnektoren -->
+<div class="sec" id="s6">
+  <div class="chips" style="margin-bottom:14px;">
+    <span class="chip on">Notion ✓</span>
+    <span class="chip on">Google Calendar ✓</span>
+    <span class="chip on">Gmail ✓</span>
+    <span class="chip on">Google Drive ✓</span>
+    <span class="chip on">Asana ✓</span>
+    <span class="chip on">HubSpot ✓</span>
+    <span class="chip on">Figma ✓</span>
+    <span class="chip on">Canva ✓</span>
+    <span class="chip pending">Slack ⏳ API pending</span>
+  </div>
+  <div class="g3">
+    <div class="card"><h3>Notion — Doku-Plattform</h3><ul><li>Seiten lesen/erstellen/bearbeiten</li><li>Datenbanken abfragen</li><li>Tools-DB pflegen</li></ul><div class="ex"><b>Beispiel:</b> „Erstell in Notion einen neuen Entry in unserer Tools-Datenbank für [Tool]."</div></div>
+    <div class="card"><h3>Gmail + Google Calendar</h3><ul><li>Mails lesen, Entwürfe schreiben</li><li>Termine anlegen &amp; Verfügbarkeit prüfen</li></ul><div class="ex"><b>Beispiel:</b> „Wann bin ich nächste Woche frei für 1h? Erstell Terminvorschlag für Dienstag 10 Uhr."</div></div>
+    <div class="card"><h3>Google Drive</h3><ul><li>Dateien suchen &amp; lesen</li><li>Dokumente zusammenfassen</li></ul><div class="ex"><b>Beispiel:</b> „Finde in Drive die Q3-Präsentation und fass die Zahlen zusammen."</div></div>
+    <div class="card"><h3>Asana — Tasks &amp; Projekte</h3><ul><li>Tasks erstellen, abfragen, aktualisieren</li><li>Abhängigkeiten setzen, Status-Updates</li></ul><div class="ex"><b>Beispiel:</b> „Erstell in Asana einen Task ‚Angebot für [Kunde]' mit Deadline nächsten Freitag."</div></div>
+    <div class="card"><h3>Figma — Design &amp; Diagramme</h3><ul><li>Diagramme generieren</li><li>Design-Assets abrufen, Mockups</li></ul><div class="ex"><b>Beispiel:</b> „Erstell in Figma ein Architektur-Diagramm für den Shop-Relaunch."</div></div>
+    <div class="card-dark"><h3>Slack (⏳ pending)</h3><ul class="dl"><li>Nachrichten lesen &amp; senden</li><li>Kanäle durchsuchen</li><li>Sobald API verfügbar</li></ul><div class="ex" style="border-color:#F4E404;"><b style="color:#F4E404;">Geplant:</b> „Fasse alle ungelesenen Nachrichten aus #netzstrategen der letzten 24h zusammen."</div></div>
+  </div>
+</div>
+
+<!-- TAB 7: Tools & Suche -->
+<div class="sec" id="s7">
+  <div class="g2" style="margin-bottom:11px;">
+    <div class="card"><h3>Web-Suche</h3><ul><li>Automatisch bei aktuellen Themen, News, Preisen</li><li>Wissensschnitt August 2025 → danach immer Suche nötig</li><li>Bilder-Suche für visuelle Anfragen verfügbar</li><li>An-/abschaltbar in den Einstellungen</li></ul><div class="ex"><b>Beispiel:</b> „Was sind aktuelle E-Mail Open Rate Benchmarks im E-Commerce Deutschland 2026?"</div></div>
+    <div class="card"><h3>Deep Research</h3><ul><li>Gründliche Recherche über 20+ Quellen</li><li>Strukturierte Berichte mit Quellenangaben</li><li>Ideal für Markt-, Wettbewerbs- oder Themenanalysen</li><li>Dauert länger, aber deutlich umfangreicher</li></ul><div class="ex"><b>Beispiel:</b> „Recherchiere den deutschen B2B-SaaS-Markt 2026: Wachstum, Trends, Top-Player."</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><h3>Code-Ausführung</h3><ul><li>Python, Bash direkt im Container (Ubuntu 24)</li><li>Dateien lesen, transformieren, exportieren</li><li>Pakete via pip/npm installierbar</li><li>Ideal für Datenbereinigung &amp; Automatisierungen</li></ul><div class="ex"><b>Beispiel:</b> „Hier ist eine CSV mit Kampagnendaten. Bereinige sie und erstell eine Excel-Auswertung."</div></div>
+    <div class="card"><h3>Inline-Visualisierungen</h3><ul><li>Charts, Diagramme, Infografiken direkt im Chat</li><li>Flowcharts, Prozesse, Systemarchitekturen als SVG</li><li>Interaktive Widgets mit Echtzeit-Interaktion</li><li>Kein Download nötig</li></ul><div class="ex"><b>Beispiel:</b> „Visualisier unseren Onboarding-Prozess als Flowchart."</div></div>
+  </div>
+</div>
+
+<!-- TAB 8: Gedächtnis -->
+<div class="sec" id="s8">
+  <div class="g3" style="margin-bottom:11px;">
+    <div class="card"><h3>Automatisches Gedächtnis</h3><ul><li>Claude merkt sich Infos aus vergangenen Chats</li><li>Kontext, Präferenzen, Projekte werden gespeichert</li><li>Einsehbar: Einstellungen → Erinnerungen</li><li>Nicht aktiv im Inkognito-Modus</li></ul><div class="ex"><b>Update:</b> „Bitte merke dir, dass wir für Kunde X immer Angebote auf Englisch erstellen."</div></div>
+    <div class="card"><h3>Chat-Verlauf durchsuchen</h3><ul><li>Vergangene Chats gezielt abrufbar</li><li>Suche nach Themen oder Zeitraum</li><li>Direktlinks zu alten Chats generierbar</li><li>Nur außerhalb von Projekten verfügbar</li></ul><div class="ex"><b>Beispiel:</b> „Was haben wir letzte Woche über den Relaunch von [Kunde] besprochen?"</div></div>
+    <div class="card-dark"><h3>Aktive netzstrategen-Einträge</h3><ul class="dl"><li>Kontenrahmen SKR04 (nicht SKR03)</li><li>Notion = zentrale Doku-Plattform</li><li>TechStack: DATEV, Billomat, HELU, RAVE, Personio, MITE</li><li>Signmark oben rechts · Volllogo nur Deckblätter</li><li>HD-Marke eingestellt, Entscheidung Mai/Juni 2026</li><li>Gemini + ChatGPT ebenfalls im Einsatz</li><li>Clockify: gekündigt · Keine Umlagen auf HD</li><li>Logos als PNG hochladen — kein SVG-Nachbau</li></ul></div>
+  </div>
+</div>
+
+<!-- TAB 9: Einstellungen -->
+<div class="sec" id="s9">
+  <div class="g3" style="margin-bottom:11px;">
+    <div class="card"><h3>Features an/abschalten</h3><ul><li>Web-Suche</li><li>Deep Research</li><li>Code-Ausführung &amp; Datei-Erstellung</li><li>Artefakte</li><li>Vergangene Chats referenzieren</li><li>Gedächtnis generieren</li></ul><div class="tip">→ Im Chat direkt oder dauerhaft in den Einstellungen</div></div>
+    <div class="card"><h3>Nutzervorlieben</h3><ul><li>Bevorzugte Antwortsprache</li><li>Ton: formal / locker / präzise</li><li>Formatierung: Listen vs. Fließtext</li><li>Länge: kurz vs. ausführlich</li><li>Fachgebiet / Rolle angeben</li></ul><div class="ex"><b>Beispiel:</b> „Antworte immer auf Deutsch, präzise, ohne Höflichkeitsfloskeln."</div></div>
+    <div class="card"><h3>Schreibstil anpassen</h3><ul><li>Eigene Texte als Stil-Vorlage hochladen</li><li>Claude imitiert Schreibweise &amp; Ton</li><li>Ideal für E-Mails, Posts, Berichte</li><li>Pro Chat oder als Standardstil</li></ul><div class="ex"><b>Beispiel:</b> Andrés LinkedIn-Posts hochladen → Claude schreibt im gleichen Stil.</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><h3>Pläne &amp; Limits</h3><ul><li><strong>Free</strong> — Basis-Zugang, begrenzte Nachrichten</li><li><strong>Pro ($20/mo)</strong> — Alle Modelle, Projekte, Excel-Add-in</li><li><strong>Max ($100/mo)</strong> — 5× Nutzung, PPT-Add-in, Cowork, Priority</li><li><strong>Team ($25/Nutzer/mo)</strong> — Geteilte Projekte, zentrale Verwaltung</li><li><strong>Enterprise</strong> — SSO, Compliance, Admin-Controls</li></ul><div class="tip">→ Account-Setup und Team-Projekte: <a href="#" onclick="sw(12);return false;">Tab 13</a> · Modell-Kontingente: <a href="#" onclick="sw(14);return false;">Tab 15</a></div></div>
+    <div class="card-dark"><h3>Sicherheit &amp; Do-Nots</h3><ul class="dl"><li>Keine Passwörter, Bankdaten oder API-Keys eingeben</li><li>Keine permanenten Löschungen ohne Bestätigung</li><li>Keine Sharing-Rechte von Dokumenten ändern lassen</li><li>Kein urheberrechtlich geschützter Text reproduziert</li><li>Excel/PPT nur mit vertrauenswürdigen Dateien nutzen</li></ul></div>
+  </div>
+</div>
+
+<!-- TAB 10: NETZ-BOT -->
+<div class="sec" id="s10">
+  <div class="bot-box">
+    <h3>Was ist NETZ-BOT?</h3>
+    <p style="color:#ccc;font-size:10.5px;line-height:1.5;margin-bottom:10px;">NETZ-BOT ist der auf netzstrategen zugeschnittene Claude-Assistent — konfiguriert mit den internen Skills, CI-Regeln, Gedächtniseinträgen und Konnektoren. Er kennt die Unternehmensstruktur, den TechStack und die Arbeitsweise der Agentur.</p>
+    <div class="g3">
+      <div style="background:#1a1a1a;border-radius:3px;padding:10px 12px;"><div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:5px;">Basis</div><ul class="dl"><li>Claude Sonnet 4.6 als Modell</li><li>netzstrategen-CI automatisch aktiv</li><li>Org-Gedächtnis vorgeladen</li><li>Alle Skills verfügbar</li></ul></div>
+      <div style="background:#1a1a1a;border-radius:3px;padding:10px 12px;"><div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:5px;">Konnektoren</div><ul class="dl"><li>Notion (Tools-DB, Doku)</li><li>Asana (Tasks, Projekte)</li><li>HubSpot (CRM, Deals)</li><li>Google Drive, Gmail, Calendar</li></ul></div>
+      <div style="background:#1a1a1a;border-radius:3px;padding:10px 12px;"><div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:5px;">Einsatz</div><ul class="dl"><li>Kundenpräsentationen im CI</li><li>Interne Dokumente &amp; Reports</li><li>Task-Management aus dem Chat</li><li>Onboarding &amp; Wissensmanagement</li></ul></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card"><h3>NETZ-BOT einrichten</h3><ul><li>In claude.ai als Projekt anlegen: „NETZ-BOT"</li><li>Projekt-Instruktion einfügen (Copy-Paste in Notion)</li><li>CI-Skill + Konnektoren im Projekt konfigurieren</li><li>Logo-Dateien als Projekt-Dateien hochladen</li><li>Für alle Team-Mitglieder freigeben (Team-Plan)</li></ul><div class="tip">→ NETZ-BOT ersetzt für alle das manuelle Laden von Skills und Kontext.</div></div>
+    <div class="card"><h3>NETZ-BOT Beispiele</h3><ul><li>„Erstell ein Angebot für [Kunde] als PPT im CI"</li><li>„Leg in Asana Tasks für den Q2-Launch an"</li><li>„Dokumentiere diese Entscheidung in Notion"</li><li>„Was haben wir für [Kunde] vereinbart?" → Chat + Notion</li><li>„Finde die Q3-Präsentation in Google Drive"</li></ul></div>
+  </div>
+</div>
+
+<!-- TAB 11: Prompt-Tipps -->
+<div class="sec" id="s11">
+  <div class="g2">
+    <div>
+      <div class="card" style="margin-bottom:11px;"><h3>Grundprinzipien</h3><ul><li>Kontext geben: Ziel, Zielgruppe, Format</li><li>Rolle definieren: „Du bist SEO-Experte…"</li><li>Schritt-für-Schritt denken lassen</li><li>Beispiele mitgeben (positiv &amp; negativ)</li><li>Länge &amp; Format explizit angeben</li></ul><div class="ex"><b>Statt:</b> „Schreib einen Blogpost über KI."<br><b>Besser:</b> „600-Wörter-Blogpost für Entscheider im Mittelstand über KI in Marketingteams. Ton: sachlich. Struktur: Intro, 3 Punkte, CTA."</div></div>
+      <div class="card"><h3>Klarheitsfragen nutzen</h3><ul><li>„Welche Infos brauchst du noch von mir?"</li><li>„Frag mich zuerst nach Zielgruppe und Format."</li><li>In Projekt-Instruktionen als Pflicht hinterlegen</li></ul><div class="ex"><b>Beispiel:</b> „Ich möchte eine Präsentation. Welche Infos brauchst du noch?"</div></div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:11px;"><h3>Für Kundenprojekte</h3><ul><li>Briefing als Anhang mitgeben</li><li>Immer Zielgruppe &amp; KPIs nennen</li><li>Branche/Wettbewerb als Kontext angeben</li><li>Ton &amp; Sprache spezifizieren</li></ul><div class="ex"><b>Beispiel:</b> „Hier ist das Briefing für [Kunde]. Erstell eine SEO-Strategie für Q3. Zielgruppe: B2B-Entscheider, 35–55 Jahre."</div></div>
+      <div class="card"><h3>Dateien &amp; Uploads</h3><ul><li>PDFs, Word, Excel, Bilder, CSVs hochladbar</li><li>Claude liest und analysiert direkt</li><li>Mehrere Dateien gleichzeitig möglich</li></ul><div class="ex"><b>Beispiel:</b> „Hier sind 3 Wettbewerber-Angebote als PDF. Vergleich Leistungen &amp; Preise in einer Tabelle."</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 12: Account & Team-Setup -->
+<div class="sec" id="s12">
+  <div class="g2" style="margin-bottom:11px;">
+    <div class="card"><h3>Persönlichen Account einrichten</h3>
+      <div class="big-label" style="margin-top:4px;">Schritt für Schritt</div>
+      <ul><li>claude.ai → Anmelden mit netzstrategen-E-Mail (Team-Plan)</li><li>Nutzervorlieben: Einstellungen → Profil → Sprache, Ton, Rolle</li><li>Konnektoren aktivieren: Einstellungen → Konnektoren</li><li>Gedächtnis einschalten: Einstellungen → Erinnerungen</li></ul>
+      <div class="tip">→ In den Nutzervorlieben einmalig hinterlegen: „Ich arbeite bei netzstrategen als [Rolle]. Antworte immer auf Deutsch, präzise." — gilt für alle Chats.</div>
+    </div>
+    <div class="card"><h3>Projekt anlegen — Schritt für Schritt</h3>
+      <ul>
+        <li>claude.ai links oben → <strong>„Neues Projekt"</strong></li>
+        <li>Projektnamen vergeben (z.B. „Kunde XY — 2026")</li>
+        <li>⚙️ Instruktionen: Rolle, Ton, Do's &amp; Don'ts, Kunden-Kontext</li>
+        <li>Dateien hochladen: Briefing, Styleguide, Preisliste</li>
+        <li>Konnektoren aktivieren: nur projektrelevante einschalten</li>
+        <li>Teilen: Projekt-Einstellungen → Mitglieder → Kolleg:innen einladen</li>
+      </ul>
+      <div class="tip" style="border-color:#c00;">⚠️ <strong>Wichtig:</strong> Geteiltes Projekt ≠ geteilte Chats. Einzelne Dialoge müssen aktiv geteilt werden: Chat öffnen → Teilen-Symbol oben rechts → Link kopieren.</div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:11px;"><h3>Projekt optimal einrichten — Checkliste</h3>
+    <div class="g3" style="margin-top:8px;">
+      <div><div class="big-label">Kontext</div><ul><li>Klare Instruktionen formulieren</li><li>Briefing als Datei hochladen</li><li>Kunden-CI und Personas hinterlegen</li></ul></div>
+      <div><div class="big-label">Zugang</div><ul><li>Relevante Konnektoren aktivieren</li><li>Beispiel-Prompts in Instruktionen</li><li>Mit Team teilen (Mitglieder einladen)</li></ul></div>
+      <div><div class="big-label">Im Alltag</div><ul><li>Wichtige Chats aktiv teilen</li><li>Instruktionen bei Bedarf anpassen</li><li>Neue Dateien hochladen wenn nötig</li></ul></div>
+    </div>
+  </div>
+  <div class="card"><h3>Empfohlene Projekt-Struktur</h3>
+    <div class="g4" style="margin-top:8px;">
+      <div class="card-dark"><h3>NETZ-BOT</h3><p style="color:#ccc;font-size:10px;">Alle · Org-Kontext, CI, TechStack</p></div>
+      <div><div class="big-label">Disziplin-Teams</div><ul><li>SEO-Team</li><li>Analytics-Team</li><li>Content-Team</li></ul></div>
+      <div><div class="big-label">Kundenprojekte</div><ul><li>Briefing, Personas</li><li>CI des Kunden</li><li>KPIs, Ziele</li></ul></div>
+      <div><div class="big-label">Mehr Details</div><ul><li><a href="#" onclick="sw(3);return false;">Tab 04 — Projekte</a></li><li><a href="#" onclick="sw(13);return false;">Tab 14 — Chat vs. Cowork</a></li></ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 13: Chat- vs. Cowork-Projekte -->
+<div class="sec" id="s13">
+  <div style="margin-bottom:11px;border-radius:3px;overflow:hidden;">
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-head"></div>
+      <div class="compare-cell compare-head">Chat-Projekt (claude.ai)</div>
+      <div class="compare-cell compare-head">Cowork-Plugin / -Projekt</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-label">Wo</div>
+      <div class="compare-cell">claude.ai – Chat-Interface</div>
+      <div class="compare-cell">Claude Cowork – Desktop-App</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-label">Was</div>
+      <div class="compare-cell">Persistenter Kontext mit Instruktionen, Dateien, Gedächtnis</div>
+      <div class="compare-cell">Workflow-Container: Skills, Connectors, Prompts gebündelt</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-label">Fokus</div>
+      <div class="compare-cell">Wissens- und Kontext-Management</div>
+      <div class="compare-cell">Automatisierung und Workflow-Ausführung</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-label">Teilen</div>
+      <div class="compare-cell">Ja — mit Team teilbar (Team/Enterprise)</div>
+      <div class="compare-cell"><strong style="color:#c00;">Nein</strong> — kein direktes Sharing; Workflow-Prompt manuell weitergeben</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;">
+      <div class="compare-cell compare-label">Typischer Einsatz</div>
+      <div class="compare-cell">Kundenprojekte, Disziplin-Teams, NETZ-BOT</div>
+      <div class="compare-cell">Wiederkehrende Tasks, Branchen-Workflows, Agenten-Prozesse</div>
+    </div>
+  </div>
+  <div class="g2" style="margin-bottom:11px;">
+    <div class="card"><h3>Chat-Projekt — Typische Beispiele</h3><ul><li>„Kunde XY": Briefing, CI-Regeln, KPIs hinterlegt → jede Anfrage kennt Kunden-Kontext automatisch</li><li>„SEO-Team": Keyword-Strategie, Richtlinien → alle starten mit demselben Wissenstand</li><li>„NETZ-BOT": Org-weiter Kontext für alle Mitarbeiter</li></ul></div>
+    <div class="card-dark"><h3>Cowork-Plugin — Typische Beispiele</h3><ul class="dl"><li>„Monatlicher Report": Ordner öffnen → CSVs lesen → Excel erstellen → in Drive speichern</li><li>„Angebots-Erstellung": Briefing-PDF lesen → PPT im CI → Datei speichern</li><li>„Financial Analysis": Excel-Modell analysieren → Variance-Report als PPT</li></ul></div>
+  </div>
+  <div class="card"><h3>Entscheidungshilfe — Was nutze ich wann?</h3>
+    <div style="margin-top:8px;">
+      <div class="dec-row" style="font-weight:700;color:#999;border-bottom:2px solid #ddd;">Aufgabe<span>Tool</span></div>
+      <div class="dec-row">Kontext für ein Kundenprojekt fürs Team speichern<span><span class="dec-badge dec-chat">Chat-Projekt</span></span></div>
+      <div class="dec-row">Eine Aufgabe wiederkehrend automatisieren<span><span class="dec-badge dec-cowork">Cowork-Plugin</span></span></div>
+      <div class="dec-row">Briefings und Dateien dauerhaft verfügbar machen<span><span class="dec-badge dec-chat">Chat-Projekt</span></span></div>
+      <div class="dec-row">Excel-Daten in eine Präsentation umwandeln<span><span class="dec-badge dec-cowork">Cowork</span></span></div>
+      <div class="dec-row">Mit Team am selben Kontext arbeiten<span><span class="dec-badge dec-chat">Chat-Projekt</span></span></div>
+      <div class="dec-row">Branchenspezifische Workflows nutzen<span><span class="dec-badge dec-cowork">Cowork-Plugin</span></span></div>
+      <div class="dec-row">Schnell eine Aufgabe ohne Setup geben<span><span class="dec-badge dec-both">Normaler Chat</span></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 14: Modelle im Vergleich -->
+<div class="sec" id="s14">
+  <div style="margin-bottom:11px;border-radius:3px;overflow:hidden;">
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-head"></div>
+      <div class="compare-cell compare-head">Haiku 4.5</div>
+      <div class="compare-cell compare-head" style="background:#1a3abf;">Sonnet 4.6 ★ Standard</div>
+      <div class="compare-cell compare-head">Opus 4.6</div>
+    </div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-label">Geschwindigkeit</div>
+      <div class="compare-cell">⚡⚡⚡ Sehr schnell</div>
+      <div class="compare-cell" style="background:#f7f9ff;">⚡⚡ Schnell</div>
+      <div class="compare-cell">⚡ Langsamer</div>
+    </div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-label">Intelligenz</div>
+      <div class="compare-cell">★★☆ Basis</div>
+      <div class="compare-cell" style="background:#f7f9ff;">★★★ Stark</div>
+      <div class="compare-cell">★★★★ Am stärksten</div>
+    </div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-label">Kontingent/Tag</div>
+      <div class="compare-cell">Viel — verbraucht wenig</div>
+      <div class="compare-cell" style="background:#f7f9ff;">Normal</div>
+      <div class="compare-cell">Wenig — schnell erschöpft</div>
+    </div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
+      <div class="compare-cell compare-label">Ideal für</div>
+      <div class="compare-cell">Einfache, schnelle Aufgaben</div>
+      <div class="compare-cell" style="background:#f7f9ff;">Alles im Alltag</div>
+      <div class="compare-cell">Komplexe Analysen &amp; Strategie</div>
+    </div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;">
+      <div class="compare-cell compare-label">Wechseln</div>
+      <div class="compare-cell" colspan="3" style="grid-column:span 3;">Oben links im Chat → Dropdown → Modell wählen. Gilt nur für den aktuellen Chat. In Projekten (<a href="#" onclick="sw(3);return false;">Tab 04</a>) Standard-Modell einstellbar.</div>
+    </div>
+  </div>
+  <div class="g3" style="margin-bottom:11px;">
+    <div class="card"><h3>Haiku 4.5 — Wann?</h3><ul><li>Kurze Zusammenfassungen</li><li>Einfache Übersetzungen &amp; Formatierungen</li><li>Schnelle Antworten auf klare Fragen</li><li>Wenn Sonnet/Opus-Kontingent erschöpft</li></ul><div class="ex"><b>Beispiel:</b> „Fass diese 10 Bullet Points in 3 zusammen." → Haiku reicht völlig.</div></div>
+    <div class="card-yellow"><h3>Sonnet 4.6 — Standard ★</h3><ul class="yl"><li>Texte, Dokumente, Übersetzungen</li><li>Präsentationen im CI erstellen</li><li>Recherche &amp; Analyse</li><li>Konnektoren (<a href="#" onclick="sw(6);return false;">Tab 07</a>), Projekte, Alltag</li></ul><div class="tip" style="background:#e8d800;">→ Standard. Ohne Auswahl wird Sonnet verwendet.</div></div>
+    <div class="card"><h3>Opus 4.6 — Wann?</h3><ul><li>Komplexe Markt- &amp; Wettbewerbsanalysen</li><li>Strategische Dokumente, viele Abwägungen</li><li>Wenn Sonnet das Ergebnis nicht liefert</li><li>Deep Research (<a href="#" onclick="sw(7);return false;">Tab 08</a>) mit vielen Quellen</li></ul><div class="tip">→ Starte mit Sonnet. Wechsle zu Opus nur wenn nötig.</div></div>
+  </div>
+  <div class="tip">Mehr zum Kontingent und zu Plänen: <a href="#" onclick="sw(9);return false;">Tab 10 — Einstellungen</a> · Mehr zum Account-Setup: <a href="#" onclick="sw(12);return false;">Tab 13 — Account &amp; Team-Setup</a></div>
+</div>
+
+<!-- TAB 15: Geplante Aufgaben -->
+<div class="sec" id="s15">
+  <div class="g2" style="margin-bottom:11px;">
+    <div class="card"><h3>Was sind geplante Aufgaben?</h3><p class="desc">In Claude Cowork können Workflows <strong>zeitgesteuert automatisch ausgeführt</strong> werden — ähnlich wie ein Cronjob, aber per natürlicher Sprache konfigurierbar. Claude führt die Aufgabe aus, ohne dass du dabei sein musst.</p>
+      <div style="margin-top:8px;"><div class="big-label">So einrichten</div><ul><li>Cowork öffnen → Aufgabe erstellen (Prompt oder Plugin)</li><li>„Einplanen" klicken → Uhrzeit, Wochentag, Intervall festlegen</li><li>Einmalig, täglich oder wöchentlich</li><li>Cowork führt die Aufgabe zum geplanten Zeitpunkt aus</li></ul></div>
+      <div class="tip">→ Voraussetzung: Computer eingeschaltet, Cowork läuft im Hintergrund. Ab Pro-Plan verfügbar.</div>
+    </div>
+    <div class="card-dark"><h3>Anwendungsfälle bei netzstrategen</h3>
+      <div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:4px;">TÄGLICH</div>
+      <ul class="dl" style="margin-bottom:8px;"><li>08:00 Uhr: Offene Asana-Tasks zusammenfassen → Notion-Notiz</li><li>17:00 Uhr: Google Drive auf neue Kundendokumente scannen</li></ul>
+      <div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:4px;">WÖCHENTLICH</div>
+      <ul class="dl" style="margin-bottom:8px;"><li>Montag: Wochenbericht aus MITE-Daten → Excel → Drive</li><li>Freitag: Asana-Projektstatus zusammenfassen → Gmail-Entwurf</li></ul>
+      <div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:4px;">MONATLICH</div>
+      <ul class="dl"><li>1. des Monats: Kampagnendaten → Report erstellen &amp; ablegen</li><li>Monatsende: Neue Notion-Dokumentationen indexieren</li></ul>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card"><h3>Kombination mit Plugins</h3><p class="desc" style="margin-bottom:6px;">Geplante Aufgaben sind besonders mächtig mit Cowork-Plugins:</p><ul><li>Plugin „Monatlicher SEO-Report" erstellen</li><li>Plugin für den 1. jeden Monats einplanen</li><li>Claude führt vollständig aus: Daten holen → analysieren → Report → Drive</li></ul><div class="tip">→ Workflow immer einmal manuell testen, bevor er eingeplant wird.</div></div>
+    <div class="card"><h3>Einschränkungen</h3><ul><li>Läuft nur wenn Cowork aktiv auf dem Gerät ist</li><li>Aktionen mit manueller Bestätigung (z.B. E-Mails senden) müssen als „automatisch erlaubt" konfiguriert sein</li><li>Ab Pro-Plan verfügbar</li></ul></div>
+  </div>
+</div>
+
+</div><!-- /content -->
+<div class="nav-bar">
+  <button class="nav-btn" id="btn-prev" onclick="nav(-1)">← Zurück</button>
+  <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+  <button class="nav-btn" id="btn-next" onclick="nav(1)">Weiter →</button>
+</div>
+<div class="bottombar"></div>
+<div class="footer-info">netzstrategen · Claude Cheat Sheet (intern) · April 2026 · claude.ai</div>
+</div>
+
+<script>
+const TOTAL=16;
+const intros=[
+  'Kurze Orientierung: Was Claude ist, was es kann — und wie die verschiedenen Interfaces, Features und Tools zusammenspielen.',
+  '<strong>claude.ai</strong> ist das tägliche Chat-Interface. <strong>Cowork</strong> ist eine Desktop-App für agentenbasiertes Arbeiten mit lokalen Dateien. <strong>Claude Code</strong> ist ein Terminal-Tool für Entwickler.',
+  'Plugins bringen Claude direkt in andere Anwendungen: <strong>Excel &amp; PowerPoint Add-ins</strong>, <strong>Claude in Chrome</strong> sowie branchenspezifische <strong>Cowork-Plugins</strong>.',
+  '<strong>Projekte</strong> sind persistente Arbeitsbereiche mit eigenem Kontext, Instruktionen und Dateien — ideal für Kundenprojekte und Team-Workflows.',
+  'Claude erstellt <strong>herunterladbare Dateien</strong> in allen Formaten — Word, PPT, Excel, PDF, HTML, React — sowie Inline-Visualisierungen direkt im Chat.',
+  '<strong>Skills</strong> sind org-spezifische Wissenspakete. Der <strong>netzstrategen-CI-Skill</strong> sorgt dafür, dass alle Outputs automatisch im richtigen Corporate Design erscheinen.',
+  '<strong>Konnektoren</strong> verbinden Claude über MCP mit externen Diensten — Notion, Asana, Gmail, Google Drive, HubSpot, Figma, Canva — direkt aus dem Chat steuerbar.',
+  'Claude hat Zugriff auf <strong>Web-Suche</strong>, <strong>Deep Research</strong>, <strong>Code-Ausführung</strong> und <strong>Inline-Visualisierungen</strong> — hier ein Überblick.',
+  '<strong>Gedächtnis</strong> erlaubt Claude, sich Infos aus vergangenen Gesprächen zu merken. Aktive <strong>netzstrategen-Einträge</strong> sind hier dokumentiert.',
+  'Alle <strong>Features</strong> lassen sich an- und abschalten. <strong>Nutzervorlieben</strong> steuern Ton, Format und Sprache. Der Schreibstil kann per Upload trainiert werden.',
+  '<strong>NETZ-BOT</strong> ist der auf netzstrategen zugeschnittene Claude-Assistent — mit vorgeladenem CI-Skill, Org-Gedächtnis und allen Konnektoren.',
+  'Tipps für <strong>effektive Prompts</strong>: Kontext geben, Rolle definieren, Format vorgeben, Klarheitsfragen nutzen.',
+  'Wie jede Person ihren <strong>persönlichen Account</strong> einrichtet — und wie Teams und Kundenprojekte mit <strong>geteilten Projekten</strong> optimal aufgesetzt werden.',
+  'Was ist der Unterschied zwischen einem <strong>Chat-Projekt</strong> und einem <strong>Cowork-Plugin</strong>? Vergleich, Beispiele und Entscheidungshilfe.',
+  '<strong>Haiku</strong> (schnell/günstig), <strong>Sonnet</strong> (Standard), <strong>Opus</strong> (komplex/stark): wann welches Modell die beste Wahl ist.',
+  'Mit <strong>geplanten Aufgaben</strong> in Claude Cowork lassen sich Workflows zeitgesteuert automatisch ausführen — ohne manuell anstoßen zu müssen.'
+];
+let cur=0;
+function sw(i){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('s'+i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  document.getElementById('intro-text').innerHTML=intros[i];
+  document.getElementById('progress-bar').style.width=((i+1)/TOTAL*100)+'%';
+  document.getElementById('btn-prev').disabled=i===0;
+  document.getElementById('btn-next').disabled=i===TOTAL-1;
+  document.querySelectorAll('.tab')[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+  cur=i;
+}
+function nav(d){sw(cur+d);}
+sw(0);
+</script>
+</body>
+</html>
