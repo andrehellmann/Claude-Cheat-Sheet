@@ -17,6 +17,15 @@ body{font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;background:#f5f5f
 .header-left p{color:rgba(255,255,255,0.68);font-size:10px;}
 .badge{display:inline-block;background:#F4E404;color:#000;font-size:9px;font-weight:800;padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle;}
 
+/* LANG TOGGLE */
+.lang-toggle{display:flex;align-items:center;gap:0;flex-shrink:0;border:1px solid rgba(255,255,255,0.35);border-radius:3px;overflow:hidden;}
+.lang-btn{padding:5px 10px;font-size:10px;font-weight:800;cursor:pointer;background:transparent;border:none;color:rgba(255,255,255,0.55);font-family:inherit;transition:background 0.12s,color 0.12s;}
+.lang-btn.active{background:rgba(255,255,255,0.22);color:#fff;}
+.lang-btn:not(.active):hover{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);}
+[data-lang]{display:none;}
+[data-lang].lang-visible{display:block;}
+span[data-lang]{display:none;}
+span[data-lang].lang-visible{display:inline;}
 /* SEARCH */
 .search-wrap{position:relative;flex-shrink:0;}
 .search-input{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:3px;padding:6px 10px 6px 30px;color:#fff;font-size:10.5px;font-family:inherit;width:190px;outline:none;transition:background 0.15s,width 0.2s;}
@@ -163,12 +172,18 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
 <div class="header">
   <div class="header-left">
     <h1>Claude Cheat Sheet <span class="badge">netzstrategen intern</span></h1>
-    <p>Vollständige Übersicht · Features, Workflows, Beispiele · April 2026</p>
+    <p><span data-lang="de" class="lang-visible">Vollständige Übersicht · Features, Workflows, Beispiele · April 2026</span><span data-lang="en">Complete Overview · Features, Workflows, Examples · April 2026</span></p>
   </div>
-  <div class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input class="search-input" id="search-input" type="text" placeholder="Suche im Cheat Sheet…" autocomplete="off">
-    <div class="search-results" id="search-results"></div>
+  <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="search-input" type="text" placeholder="Suche / Search…" autocomplete="off">
+      <div class="search-results" id="search-results"></div>
+    </div>
   </div>
 </div>
 
@@ -177,24 +192,24 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
 
   <!-- News tab — pinned -->
   <button class="nav-news active" onclick="sw(0)" id="nav-news-btn">
-    <span class="nav-news-dot"></span> Neuigkeiten
+    <span class="nav-news-dot"></span><span data-lang="de" class="lang-visible">Neuigkeiten</span><span data-lang="en">News</span>
   </button>
 
   <div class="nav-divider"></div>
 
   <!-- Group A -->
   <div class="nav-group">
-    <button class="nav-group-btn" id="grp-btn-a" onclick="selectGroup('a')">A · Grundlagen</button>
+    <button class="nav-group-btn" id="grp-btn-a" onclick="selectGroup('a')"><span data-lang="de" class="lang-visible">A · Grundlagen</span><span data-lang="en">A · Basics</span></button>
   </div>
 
   <!-- Group B -->
   <div class="nav-group">
-    <button class="nav-group-btn" id="grp-btn-b" onclick="selectGroup('b')">B · Features &amp; Tools</button>
+    <button class="nav-group-btn" id="grp-btn-b" onclick="selectGroup('b')"><span data-lang="de" class="lang-visible">B · Features &amp; Tools</span><span data-lang="en">B · Features &amp; Tools</span></button>
   </div>
 
   <!-- Group C -->
   <div class="nav-group">
-    <button class="nav-group-btn" id="grp-btn-c" onclick="selectGroup('c')">C · Setup &amp; Organisation</button>
+    <button class="nav-group-btn" id="grp-btn-c" onclick="selectGroup('c')"><span data-lang="de" class="lang-visible">C · Setup &amp; Organisation</span><span data-lang="en">C · Setup &amp; Organisation</span></button>
   </div>
 
 </div>
@@ -209,6 +224,7 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
 
 <!-- S0: NEUIGKEITEN -->
 <div class="sec active" id="s0">
+<div data-lang="de" class="lang-visible">
   <div class="news-header">
     <div>
       <div class="news-date">Stand: April 2026</div>
@@ -271,9 +287,27 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
   </div>
   <div class="tip" style="margin-top:4px;">Dieses Sheet wird laufend aktualisiert. Neue Einträge erscheinen immer hier zuerst — mit direktem Link zur betreffenden Seite.</div>
 </div>
+<div data-lang="en">
+  <div class="news-header"><div><div class="news-date">As of: April 2026</div><h2>🆕 What's new in Claude?</h2></div></div>
+  <div class="g2">
+    <div>
+      <div class="news-item new"><div class="news-item-head"><span class="news-badge new">New</span><span class="news-item-title">Claude Design — April 17, 2026</span></div><p class="news-item-text">AI-powered design tool: prototypes, slides, one-pagers, UI mockups from text prompts — no design background needed. Reads codebase and design files for automatic design system. Powered by Opus 4.7.</p><a class="news-item-link" onclick="sw(16);return false;">→ Tab 11: Claude Design</a></div>
+      <div class="news-item updated"><div class="news-item-head"><span class="news-badge updated">Updated</span><span class="news-item-title">Claude Opus 4.7 — April 16, 2026</span></div><p class="news-item-text">New flagship model. Improved vision (3.75 MP vs 1.15 MP), stronger coding, new "xhigh" effort level. Replaces Opus 4.6 as the standard complex model.</p><a class="news-item-link" onclick="sw(15);return false;">→ Tab 03: Model Comparison</a></div>
+      <div class="news-item updated"><div class="news-item-head"><span class="news-badge updated">Updated</span><span class="news-item-title">Claude Code Redesign + Routines — April 16, 2026</span></div><p class="news-item-text">New UI: multi-session sidebar, integrated terminal, HTML/PDF preview. New: Routines — repeatable automations running on Claude Code's cloud infrastructure (Mac doesn't need to be online).</p><a class="news-item-link" onclick="sw(2);return false;">→ Tab 02: Chat / Cowork / Code</a></div>
+    </div>
+    <div>
+      <div class="news-item updated"><div class="news-item-head"><span class="news-badge updated">Updated</span><span class="news-item-title">Claude Cowork — Now Generally Available</span></div><p class="news-item-text">Cowork is GA on macOS and Windows. New: Analytics API, usage dashboards for Team/Enterprise, OpenTelemetry support, admin groups via SCIM.</p><a class="news-item-link" onclick="sw(2);return false;">→ Tab 02: Chat / Cowork / Code</a></div>
+      <div class="news-item updated"><div class="news-item-head"><span class="news-badge updated">Updated</span><span class="news-item-title">Models — Opus 4 &amp; 4.1 Removed</span></div><p class="news-item-text">Opus 4.0 and 4.1 have been removed from the model selector. Current family: Haiku 4.5 · Sonnet 4.6 · Opus 4.7.</p><a class="news-item-link" onclick="sw(15);return false;">→ Tab 03: Model Comparison</a></div>
+      <div class="news-item"><div class="news-item-head"><span class="news-badge fix">Info</span><span class="news-item-title">Sonnet 4.6 — 1M Token Context Window (beta)</span></div><p class="news-item-text">Sonnet 4.6 now supports a 1-million-token context window in beta. Enables very long documents, entire codebases, or very long conversations in one chat.</p><a class="news-item-link" onclick="sw(15);return false;">→ Tab 03: Model Comparison</a></div>
+    </div>
+  </div>
+  <div class="tip" style="margin-top:4px;">This sheet is updated continuously. New entries always appear here first — with a direct link to the relevant section.</div>
+</div>
+</div>
 
 <!-- S1: ÜBERBLICK -->
 <div class="sec" id="s1">
+<div data-lang="de" class="lang-visible">
   <div class="g2" style="margin-bottom:10px;">
     <div class="card"><h3>Was ist Claude?</h3><p class="desc">KI-Assistent von Anthropic. Aktuelles Modell: <strong>Claude Sonnet 4.6</strong> (Standard) / <strong>Opus 4.7</strong> (komplex). Verfügbar via claude.ai (Web/Mobile/Desktop), Claude Code, Claude Design und als Office-Add-in.</p><div class="tip">Modelle: <strong>Opus 4.7</strong> (komplex, beste Vision) · <strong>Sonnet 4.6</strong> (Standard, 1M Kontext) · <strong>Haiku 4.5</strong> (schnell/günstig) → <a href="#" onclick="sw(15);return false;">Tab 03</a></div></div>
     <div class="card"><h3>Kernfähigkeiten</h3><ul><li>Texte, Analysen, Präsentationen, Berichte erstellen</li><li>Code schreiben, debuggen, automatisieren</li><li>Visuals, Prototypen, Designs erstellen (Claude Design)</li><li>Daten analysieren &amp; visualisieren</li><li>Interne Tools verbinden (Notion, Asana, Google…)</li><li>Web-Recherche &amp; aktuelle Informationen</li></ul></div>
@@ -286,9 +320,24 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card"><h3>Add-ins</h3><p class="desc" style="font-size:10px;">Claude direkt in Excel &amp; PowerPoint (Office)</p></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g2" style="margin-bottom:10px;">
+    <div class="card"><h3>What is Claude?</h3><p class="desc">AI assistant by Anthropic. Current model: <strong>Claude Sonnet 4.6</strong> (standard) / <strong>Opus 4.7</strong> (complex). Available via claude.ai (Web/Mobile/Desktop), Claude Code, Claude Design and as an Office add-in.</p><div class="tip">Models: <strong>Opus 4.7</strong> (complex, best vision) · <strong>Sonnet 4.6</strong> (standard, 1M context) · <strong>Haiku 4.5</strong> (fast/affordable) → <a href="#" onclick="sw(15);return false;">Tab 03</a></div></div>
+    <div class="card"><h3>Core Capabilities</h3><ul><li>Create texts, analyses, presentations, reports</li><li>Write, debug and automate code</li><li>Create visuals, prototypes, designs (Claude Design)</li><li>Analyse &amp; visualise data</li><li>Connect internal tools (Notion, Asana, Google…)</li><li>Web research &amp; current information</li></ul></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:9px;">
+    <div class="card"><h3>claude.ai</h3><p class="desc" style="font-size:10px;">Chat, artifacts, connectors, memory, projects</p></div>
+    <div class="card-dark"><h3>Cowork</h3><p style="color:#ccc;font-size:10px;line-height:1.4;">Desktop app: agent-based work with files &amp; apps</p></div>
+    <div class="card"><h3>Claude Code</h3><p class="desc" style="font-size:10px;">CLI for developers, multi-session, routines</p></div>
+    <div class="card" style="border-left:3px solid #c00;"><h3 style="color:#c00;">Claude Design</h3><p class="desc" style="font-size:10px;">Prototypes, slides, UI mockups from prompts — NEW</p></div>
+    <div class="card"><h3>Add-ins</h3><p class="desc" style="font-size:10px;">Claude directly in Excel &amp; PowerPoint (Office)</p></div>
+  </div>
+</div>
+</div>
 
 <!-- S2: CHAT / COWORK / CODE -->
 <div class="sec" id="s2">
+<div data-lang="de" class="lang-visible">
   <div style="margin-bottom:10px;border-radius:3px;overflow:hidden;">
     <div class="compare-row"><div class="compare-cell compare-head"></div><div class="compare-cell compare-head">claude.ai (Chat)</div><div class="compare-cell compare-head">Claude Cowork</div><div class="compare-cell compare-head">Claude Code</div></div>
     <div class="compare-row"><div class="compare-cell compare-label">Zugang</div><div class="compare-cell">Web, Mobile, Desktop-App</div><div class="compare-cell">Desktop-App (Mac/Windows) — GA</div><div class="compare-cell">Terminal / CLI — neu redesigned</div></div>
@@ -304,9 +353,27 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card"><h3>Claude Code — Wann?</h3><ul><li>Repositories analysieren &amp; refactorn</li><li>Bugs automatisch finden &amp; fixen</li><li>Security-Scans auf Codebases</li><li>Mehrere Sessions parallel (neu)</li></ul><div class="ex"><b>Neu Apr 2026:</b> Multi-Session-Sidebar, integriertes Terminal, HTML/PDF-Vorschau.</div></div>
   </div>
 </div>
+<div data-lang="en">
+  <div style="margin-bottom:10px;border-radius:3px;overflow:hidden;">
+    <div class="compare-row"><div class="compare-cell compare-head"></div><div class="compare-cell compare-head">claude.ai (Chat)</div><div class="compare-cell compare-head">Claude Cowork</div><div class="compare-cell compare-head">Claude Code</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">Access</div><div class="compare-cell">Web, Mobile, Desktop app</div><div class="compare-cell">Desktop app (Mac/Windows) — GA</div><div class="compare-cell">Terminal / CLI — newly redesigned</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">For whom</div><div class="compare-cell">All team members</div><div class="compare-cell">Knowledge workers, Ops, Marketing</div><div class="compare-cell">Developers, DevOps</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">Interaction</div><div class="compare-cell">Conversation-based</div><div class="compare-cell">Agent-based: Claude acts autonomously</div><div class="compare-cell">Terminal commands, agent-based</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">File access</div><div class="compare-cell">Only uploaded files</div><div class="compare-cell">Direct access to local files &amp; apps</div><div class="compare-cell">Entire codebase in context</div></div>
+    <div class="compare-row"><div class="compare-cell compare-label">New Apr 2026</div><div class="compare-cell">—</div><div class="compare-cell">Analytics API, SCIM groups, OpenTelemetry</div><div class="compare-cell">Redesign, multi-session, cloud-based Routines</div></div>
+  </div>
+  <div class="tip" style="margin-bottom:10px;"><strong>Rule of thumb:</strong> Want to discuss or generate something → Chat. Claude should act on your computer → Cowork. Automate code → Claude Code. → <a href="#" onclick="sw(14);return false;">Tab 16: Chat vs. Cowork Projects</a></div>
+  <div class="g3">
+    <div class="card"><h3>claude.ai — When?</h3><ul><li>Daily for texts, emails, meetings</li><li>Client presentations in CI</li><li>Control Notion, Asana, Google from chat</li><li>Research &amp; Deep Research</li></ul><div class="ex"><b>Example:</b> "Create a netzstrategen PPT on SEO trends with 8 slides."</div></div>
+    <div class="card-dark"><h3>Cowork — When?</h3><ul class="dl"><li>Read &amp; edit local files</li><li>Excel → PPT in one step</li><li>Automate recurring tasks</li><li>Scheduled tasks → <a href="#" onclick="sw(17);return false;" style="color:#F4E404;">Tab 17</a></li></ul><div class="ex" style="border-color:#F4E404;"><b style="color:#F4E404;">New:</b> Routines run cloud-based — Mac doesn't need to be online.</div></div>
+    <div class="card"><h3>Claude Code — When?</h3><ul><li>Analyse &amp; refactor repositories</li><li>Automatically find &amp; fix bugs</li><li>Security scans on codebases</li><li>Multiple sessions in parallel (new)</li></ul><div class="ex"><b>New Apr 2026:</b> Multi-session sidebar, integrated terminal, HTML/PDF preview.</div></div>
+  </div>
+</div>
+</div>
 
 <!-- S3: PLUGINS & ADD-INS -->
 <div class="sec" id="s3">
+<div data-lang="de" class="lang-visible">
   <div class="g2" style="margin-bottom:10px;">
     <div class="card"><h3>Claude in Excel <span style="font-size:9px;color:#999;">(Pro+)</span></h3><ul><li>Formeln erklären, Daten analysieren, Modelle erstellen — mit Zell-Referenzen</li><li>Pivot-Table-Bearbeitung, bedingte Formatierung</li><li>Echtzeit-Daten aus LSEG und Moody's integrierbar</li><li>Shortcut: <code>Ctrl+Alt+C</code></li></ul><div class="ex"><b>Beispiel:</b> „Was treibt die Umsatzprognose in Q3? Erhöhe das Wachstum um 2%."</div></div>
     <div class="card"><h3>Claude in PowerPoint <span style="font-size:9px;color:#999;">(Max+)</span></h3><ul><li>Folien aus Prompts generieren — liest Slide Master</li><li>Nutzt vorhandene Layouts, Fonts &amp; Farben</li><li>Seit März 2026: teilt Kontext mit Excel</li></ul><div class="tip">→ Excel-Analyse → direkt als PPT, in einem Durchgang.</div></div>
@@ -317,9 +384,22 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card" style="border-left:3px solid #c00;"><h3 style="color:#c00;">Claude Design <span style="font-size:9px;color:#999;">NEU</span></h3><ul><li>Prototypen, Slides, One-Pager aus Prompts</li><li>Design-System aus Codebase lesen</li></ul><div class="ex"><b>Details:</b> <a href="#" onclick="sw(16);return false;">Tab 11 → Claude Design</a></div></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g2" style="margin-bottom:10px;">
+    <div class="card"><h3>Claude in Excel <span style="font-size:9px;color:#999;">(Pro+)</span></h3><ul><li>Explain formulas, analyse data, build models — with cell references</li><li>Pivot table editing, conditional formatting</li><li>Real-time data from LSEG and Moody's</li><li>Shortcut: <code>Ctrl+Alt+C</code></li></ul><div class="ex"><b>Example:</b> "What's driving Q3 revenue? Increase growth by 2% and show impact on all dependent formulas."</div></div>
+    <div class="card"><h3>Claude in PowerPoint <span style="font-size:9px;color:#999;">(Max+)</span></h3><ul><li>Generate slides from prompts — reads slide master</li><li>Uses existing layouts, fonts &amp; colours</li><li>Since March 2026: shares context with Excel</li></ul><div class="tip">→ Excel analysis → directly as PPT, in one pass.</div></div>
+  </div>
+  <div class="g3">
+    <div class="card-dark"><h3>Cowork Plugins <span style="font-size:9px;color:#999;">(Team/Enterprise)</span></h3><ul class="dl"><li>HR, Design, Engineering, Operations</li><li>Brand Voice, Financial Analysis</li><li>Investment Banking, Equity Research</li></ul></div>
+    <div class="card"><h3>Claude in Chrome <span style="font-size:9px;color:#999;">(beta)</span></h3><ul><li>Browser agent: navigates websites</li><li>Fills out forms, extracts data</li></ul><div class="ex"><b>Example:</b> "Gather profiles of the top 10 decision-makers at [Company] on LinkedIn."</div></div>
+    <div class="card" style="border-left:3px solid #c00;"><h3 style="color:#c00;">Claude Design <span style="font-size:9px;color:#999;">NEW</span></h3><ul><li>Prototypes, slides, one-pagers from prompts</li><li>Reads design system from codebase</li></ul><div class="ex"><b>Details:</b> <a href="#" onclick="sw(16);return false;">Tab 11 → Claude Design</a></div></div>
+  </div>
+</div>
+</div>
 
 <!-- S4: PROJEKTE -->
 <div class="sec" id="s4">
+<div data-lang="de" class="lang-visible">
   <div class="g2" style="margin-bottom:10px;">
     <div class="card"><h3>Was Projekte können</h3><ul><li>Eigene System-Instruktionen (Ton, Rolle, Regeln)</li><li>Dateien dauerhaft im Kontext hinterlegen</li><li>Alle Chats teilen denselben Kontext</li><li>Teamweiter Zugriff (Team/Enterprise)</li><li>Konnektoren &amp; Skills pro Projekt konfigurieren</li></ul><div class="ex"><b>Beispiel:</b> Projekt „Kunde XY": Briefing + CI-Regeln + KPIs → alle im Kontext.</div></div>
     <div class="card"><h3>Wann Projekte nutzen?</h3><ul><li>Laufende Kundenprojekte mit mehreren Beteiligten</li><li>Disziplin-Workflows (z.B. „SEO-Team")</li><li>Wiederkehrende Berichte &amp; Reportings</li><li>Interne Wissensdatenbanken</li><li>Onboarding neuer Mitarbeiter</li></ul><div class="tip">→ Projekte ersetzen „Copy-Paste-Kontext". Setup-Anleitung: <a href="#" onclick="sw(13);return false;">Tab 15</a></div></div>
@@ -330,9 +410,22 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card"><h3>Klarheitsfragen</h3><ul><li>Claude fragt bei Unklarheiten aktiv nach</li><li>Spart Iteration — lieber 1 Frage mehr</li><li>In Projekt-Instruktionen steuerbar</li></ul><div class="ex"><b>Beispiel:</b> „Frag immer nach Zielgruppe und Format, bevor du einen Text erstellst."</div></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g2" style="margin-bottom:10px;">
+    <div class="card"><h3>What Projects Can Do</h3><ul><li>Custom system instructions (tone, role, rules)</li><li>Files permanently in context</li><li>All chats share the same context</li><li>Team-wide access (Team/Enterprise)</li><li>Connectors &amp; skills configurable per project</li></ul><div class="ex"><b>Example:</b> Project "Client XY": briefing + CI rules + KPIs → everyone works with the same context.</div></div>
+    <div class="card"><h3>When to Use Projects?</h3><ul><li>Ongoing client projects with multiple contributors</li><li>Department workflows (e.g. "SEO team")</li><li>Recurring reports &amp; reportings</li><li>Internal knowledge bases</li><li>Onboarding new team members</li></ul><div class="tip">→ Projects replace "copy-paste context". Set up once, always available. Setup guide: <a href="#" onclick="sw(13);return false;">Tab 15</a></div></div>
+  </div>
+  <div class="g3">
+    <div class="card"><h3>Project Instructions</h3><ul><li>Define role, tone, format, language</li><li>Document do's &amp; don'ts</li><li>Active in every chat within the project</li></ul><div class="ex"><b>Example:</b> "You are an SEO expert at netzstrategen. Answer with data, concrete actions."</div></div>
+    <div class="card"><h3>Project Files</h3><ul><li>PDFs, docs, CSVs, images uploadable</li><li>Always in context — no upload needed each time</li><li>Ideal: briefings, guidelines, price lists</li></ul></div>
+    <div class="card"><h3>Clarifying Questions</h3><ul><li>Claude actively asks when unclear</li><li>Saves iteration — better one extra question</li><li>Controllable in project instructions</li></ul><div class="ex"><b>Example:</b> "Always ask about target audience and format before writing a text."</div></div>
+  </div>
+</div>
+</div>
 
 <!-- S5: ARTEFAKTE & DOCS -->
 <div class="sec" id="s5">
+<div data-lang="de" class="lang-visible">
   <div class="g4" style="margin-bottom:10px;">
     <div class="card"><h3>Word (.docx)</h3><p class="desc" style="font-size:10px;">Angebote, Berichte, Memos. → Skill: <strong>docx</strong></p></div>
     <div class="card"><h3>Präsentation (.pptx)</h3><p class="desc" style="font-size:10px;">Folien im netzstrategen-CI. → Skill: <strong>pptx + netzstrategen-ci</strong></p></div>
@@ -345,9 +438,24 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card-yellow"><h3>Tipp</h3><ul class="yl"><li>„Erstell mir eine Datei" → herunterladbar</li><li>„Als Artefakt" → renderbar im Chat</li><li>Alle Formate mit netzstrategen-CI formatierbar</li></ul></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g4" style="margin-bottom:10px;">
+    <div class="card"><h3>Word (.docx)</h3><p class="desc" style="font-size:10px;">Proposals, reports, memos. → Skill: <strong>docx</strong></p></div>
+    <div class="card"><h3>Presentation (.pptx)</h3><p class="desc" style="font-size:10px;">Slides in netzstrategen CI. → Skill: <strong>pptx + netzstrategen-ci</strong></p></div>
+    <div class="card"><h3>Excel (.xlsx)</h3><p class="desc" style="font-size:10px;">Analyses, tracking sheets. → Skill: <strong>xlsx</strong></p></div>
+    <div class="card"><h3>PDF</h3><p class="desc" style="font-size:10px;">Formatted documents. → Skill: <strong>pdf</strong></p></div>
+  </div>
+  <div class="g3">
+    <div class="card-dark"><h3>HTML / React / Mermaid</h3><ul class="dl"><li>Interactive apps, dashboards, calculators</li><li>React components with state &amp; charts</li><li>Mermaid for flowcharts</li></ul><div class="ex" style="border-color:#F4E404;"><b style="color:#F4E404;">Example:</b> "Build an interactive ROI calculator as an HTML file."</div></div>
+    <div class="card"><h3>Inline Visualisations</h3><ul><li>Flowcharts, process diagrams directly in chat</li><li>Org charts, charts without download</li></ul><div class="ex"><b>Example:</b> "Show our lead qualification process as a flowchart."</div></div>
+    <div class="card-yellow"><h3>Tip</h3><ul class="yl"><li>"Create a file for me" → downloadable</li><li>"As an artifact" → renderable in chat</li><li>All formats can use netzstrategen CI</li></ul></div>
+  </div>
+</div>
+</div>
 
 <!-- S6: SKILLS & CI -->
 <div class="sec" id="s6">
+<div data-lang="de" class="lang-visible">
   <div class="g2" style="margin-bottom:10px;">
     <div class="card"><h3>netzstrategen CI — Kernregeln</h3>
       <div style="margin-bottom:5px;"><div class="big-label">Farben</div><div style="display:flex;gap:5px;"><span style="background:#253FE4;color:#fff;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;">#253FE4</span><span style="background:#F4E404;color:#000;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;">#F4E404</span><span style="background:#000;color:#fff;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;">#000</span></div></div>
@@ -369,9 +477,33 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     </div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g2" style="margin-bottom:10px;">
+    <div class="card"><h3>netzstrategen CI — Core Rules</h3>
+      <div style="margin-bottom:5px;"><div class="big-label">Colours</div><div style="display:flex;gap:5px;"><span style="background:#253FE4;color:#fff;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;">#253FE4</span><span style="background:#F4E404;color:#000;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;">#F4E404</span><span style="background:#000;color:#fff;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;">#000</span></div></div>
+      <ul><li>Font: Open Sans — no ALL CAPS</li><li><strong>Signmark</strong> top right — all pages except cover</li><li><strong>Full logo</strong> on cover pages ONLY</li><li>Never use SVG reconstruction — embed real PNGs</li><li>Black footer bar · Arrow bullets →</li></ul>
+    </div>
+    <div class="card"><h3>All Available Skills</h3>
+      <div class="g2" style="margin-top:5px;">
+        <div><div class="big-label">CI &amp; Design</div><ul><li><code>netzstrategen-ci</code></li><li><code>pptx</code></li><li><code>docx</code></li><li><code>xlsx</code></li><li><code>pdf</code></li><li><code>frontend-design</code></li></ul></div>
+        <div><div class="big-label">Content &amp; Tools</div><ul><li><code>netzstrategen-corporate-language</code></li><li><code>digital-impact-newsletter</code></li><li><code>product-self-knowledge</code></li><li><code>tool-advisor</code></li><li><code>skill-creator</code></li></ul></div>
+      </div>
+    </div>
+  </div>
+  <div class="card"><h3>Logo Files (upload per chat)</h3>
+    <div class="g4" style="margin-top:5px;">
+      <div class="row"><div class="ico">PNG</div><div class="rb"><h4>…logo_72dpi_rgb__1_.png</h4><p>Signmark black — light BG</p></div></div>
+      <div class="row"><div class="ico" style="background:#000;">PNG</div><div class="rb"><h4>…logo_72dpi_rgb_white.png</h4><p>Signmark white — dark BG</p></div></div>
+      <div class="row"><div class="ico">WM</div><div class="rb"><h4>NETZ-Wordmark-Black…</h4><p>Full logo black — cover page</p></div></div>
+      <div class="row"><div class="ico" style="background:#000;">WM</div><div class="rb"><h4>NETZ-Wordmark-white…</h4><p>Full logo white — dark cover</p></div></div>
+    </div>
+  </div>
+</div>
+</div>
 
 <!-- S7: KONNEKTOREN -->
 <div class="sec" id="s7">
+<div data-lang="de" class="lang-visible">
   <div class="chips" style="margin-bottom:12px;">
     <span class="chip on">Notion ✓</span><span class="chip on">Google Calendar ✓</span><span class="chip on">Gmail ✓</span><span class="chip on">Google Drive ✓</span><span class="chip on">Asana ✓</span><span class="chip on">HubSpot ✓</span><span class="chip on">Figma ✓</span><span class="chip on">Canva ✓</span><span class="chip pending">Slack ⏳</span>
   </div>
@@ -384,9 +516,24 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card-dark"><h3>Slack (⏳ pending)</h3><ul class="dl"><li>Nachrichten lesen &amp; senden</li><li>Kanäle durchsuchen</li><li>Sobald API verfügbar</li></ul></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="chips" style="margin-bottom:12px;">
+    <span class="chip on">Notion ✓</span><span class="chip on">Google Calendar ✓</span><span class="chip on">Gmail ✓</span><span class="chip on">Google Drive ✓</span><span class="chip on">Asana ✓</span><span class="chip on">HubSpot ✓</span><span class="chip on">Figma ✓</span><span class="chip on">Canva ✓</span><span class="chip pending">Slack ⏳</span>
+  </div>
+  <div class="g3">
+    <div class="card"><h3>Notion — Docs</h3><ul><li>Read/create/edit pages</li><li>Query databases, maintain tools DB</li></ul><div class="ex"><b>Example:</b> "Create an entry in our tools database for [Tool]."</div></div>
+    <div class="card"><h3>Gmail + Google Calendar</h3><ul><li>Read emails, write drafts</li><li>Create appointments &amp; check availability</li></ul><div class="ex"><b>Example:</b> "When am I free for 1h next week?"</div></div>
+    <div class="card"><h3>Google Drive</h3><ul><li>Search &amp; read files</li><li>Summarise documents</li></ul><div class="ex"><b>Example:</b> "Find the Q3 presentation and summarise the key figures."</div></div>
+    <div class="card"><h3>Asana — Tasks</h3><ul><li>Create, query, update tasks</li><li>Set dependencies, status updates</li></ul><div class="ex"><b>Example:</b> "Create task 'Proposal for [Client]' with deadline Friday."</div></div>
+    <div class="card"><h3>Figma — Design</h3><ul><li>Generate diagrams, retrieve mockups</li></ul><div class="ex"><b>Example:</b> "Create an architecture diagram in Figma."</div></div>
+    <div class="card-dark"><h3>Slack (⏳ pending)</h3><ul class="dl"><li>Read &amp; send messages</li><li>Search channels</li><li>Once API is available</li></ul></div>
+  </div>
+</div>
+</div>
 
 <!-- S8: TOOLS & SUCHE -->
 <div class="sec" id="s8">
+<div data-lang="de" class="lang-visible">
   <div class="g2" style="margin-bottom:10px;">
     <div class="card"><h3>Web-Suche</h3><ul><li>Automatisch bei aktuellen Themen, News, Preisen</li><li>Wissensschnitt August 2025 → danach immer Suche</li><li>Bilder-Suche für visuelle Anfragen</li></ul><div class="ex"><b>Beispiel:</b> „E-Mail Open Rate Benchmarks E-Commerce Deutschland 2026?"</div></div>
     <div class="card"><h3>Deep Research</h3><ul><li>Gründliche Recherche über 20+ Quellen</li><li>Strukturierte Berichte mit Quellenangaben</li><li>Ideal für Markt- &amp; Wettbewerbsanalysen</li></ul><div class="ex"><b>Beispiel:</b> „Recherchiere den deutschen B2B-SaaS-Markt 2026."</div></div>
@@ -396,18 +543,39 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card"><h3>Inline-Visualisierungen</h3><ul><li>Charts, Diagramme, SVG direkt im Chat</li><li>Interaktive Widgets mit Echtzeit-Interaktion</li><li>Kein Download nötig</li></ul><div class="ex"><b>Beispiel:</b> „Visualisier unseren Onboarding-Prozess als Flowchart."</div></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g2" style="margin-bottom:10px;">
+    <div class="card"><h3>Web Search</h3><ul><li>Automatic for current topics, news, prices</li><li>Knowledge cutoff August 2025 → search required after that</li><li>Image search for visual queries</li></ul><div class="ex"><b>Example:</b> "Email open rate benchmarks e-commerce Germany 2026?"</div></div>
+    <div class="card"><h3>Deep Research</h3><ul><li>Thorough research across 20+ sources</li><li>Structured reports with source references</li><li>Ideal for market &amp; competitor analyses</li></ul><div class="ex"><b>Example:</b> "Research the German B2B SaaS market 2026."</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><h3>Code Execution</h3><ul><li>Python, Bash directly in container (Ubuntu 24)</li><li>Read, transform and export files</li><li>Packages installable via pip/npm</li></ul><div class="ex"><b>Example:</b> "Here's a CSV. Clean it and create an Excel analysis."</div></div>
+    <div class="card"><h3>Inline Visualisations</h3><ul><li>Charts, diagrams, SVG directly in chat</li><li>Interactive widgets with real-time interaction</li><li>No download needed</li></ul><div class="ex"><b>Example:</b> "Visualise our onboarding process as a flowchart."</div></div>
+  </div>
+</div>
+</div>
 
 <!-- S9: GEDÄCHTNIS -->
 <div class="sec" id="s9">
+<div data-lang="de" class="lang-visible">
   <div class="g3">
     <div class="card"><h3>Automatisches Gedächtnis</h3><ul><li>Merkt sich Infos aus vergangenen Chats</li><li>Kontext, Präferenzen automatisch gespeichert</li><li>Einsehbar: Einstellungen → Erinnerungen</li><li>Nicht im Inkognito-Modus</li></ul><div class="ex"><b>Update:</b> „Merke dir, dass wir für Kunde X immer auf Englisch antworten."</div></div>
     <div class="card"><h3>Chat-Verlauf durchsuchen</h3><ul><li>Vergangene Chats gezielt abrufbar</li><li>Suche nach Themen oder Zeitraum</li><li>Direktlinks zu alten Chats generierbar</li><li>Nur außerhalb von Projekten</li></ul><div class="ex"><b>Beispiel:</b> „Was haben wir letzte Woche über [Kunde] besprochen?"</div></div>
     <div class="card-dark"><h3>Aktive netzstrategen-Einträge</h3><ul class="dl"><li>Kontenrahmen SKR04 (nicht SKR03)</li><li>Notion = zentrale Doku-Plattform</li><li>TechStack: DATEV, Billomat, HELU, RAVE, Personio, MITE</li><li>Signmark oben rechts · Volllogo nur Deckblätter</li><li>HD-Marke eingestellt, Mai/Juni 2026</li><li>Gemini + ChatGPT ebenfalls im Einsatz</li><li>Clockify: gekündigt</li></ul></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g3">
+    <div class="card"><h3>Automatic Memory</h3><ul><li>Remembers info from past conversations</li><li>Context, preferences automatically saved</li><li>Viewable: Settings → Memories</li><li>Not active in incognito mode</li></ul><div class="ex"><b>Update:</b> "Remember that we always write proposals for Client X in English."</div></div>
+    <div class="card"><h3>Search Chat History</h3><ul><li>Past chats retrievable by topic</li><li>Search by topic or time period</li><li>Direct links to old chats</li><li>Only available outside of projects</li></ul><div class="ex"><b>Example:</b> "What did we discuss last week about [Client]?"</div></div>
+    <div class="card-dark"><h3>Active netzstrategen Memory Entries</h3><ul class="dl"><li>Chart of accounts SKR04 (not SKR03)</li><li>Notion = central documentation platform</li><li>Tech stack: DATEV, Billomat, HELU, RAVE, Personio, MITE</li><li>Signmark top right · Full logo on covers only</li><li>HD brand discontinued, May/June 2026</li><li>Gemini + ChatGPT also in use</li><li>Clockify: cancelled</li></ul></div>
+  </div>
+</div>
+</div>
 
 <!-- S10: EINSTELLUNGEN -->
 <div class="sec" id="s10">
+<div data-lang="de" class="lang-visible">
   <div class="g3" style="margin-bottom:10px;">
     <div class="card"><h3>Features an/abschalten</h3><ul><li>Web-Suche</li><li>Deep Research</li><li>Code-Ausführung &amp; Datei-Erstellung</li><li>Artefakte</li><li>Vergangene Chats referenzieren</li><li>Gedächtnis generieren</li></ul><div class="tip">→ Im Chat direkt oder dauerhaft in den Einstellungen</div></div>
     <div class="card"><h3>Nutzervorlieben</h3><ul><li>Bevorzugte Antwortsprache</li><li>Ton: formal / locker / präzise</li><li>Formatierung: Listen vs. Fließtext</li><li>Fachgebiet / Rolle angeben</li></ul><div class="ex"><b>Beispiel:</b> „Antworte immer auf Deutsch, präzise, ohne Floskeln."</div></div>
@@ -418,9 +586,22 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card-dark"><h3>Sicherheit &amp; Do-Nots</h3><ul class="dl"><li>Keine Passwörter, Bankdaten oder API-Keys eingeben</li><li>Keine permanenten Löschungen ohne Bestätigung</li><li>Keine Sharing-Rechte von Dokumenten ändern lassen</li><li>Kein urheberrechtlich geschützter Text reproduziert</li><li>Excel/PPT nur mit vertrauenswürdigen Dateien nutzen</li></ul></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g3" style="margin-bottom:10px;">
+    <div class="card"><h3>Enable/Disable Features</h3><ul><li>Web search</li><li>Deep research</li><li>Code execution &amp; file creation</li><li>Artifacts</li><li>Reference past chats</li><li>Generate memory</li></ul><div class="tip">→ Toggle directly in chat or permanently in settings</div></div>
+    <div class="card"><h3>User Preferences</h3><ul><li>Preferred response language</li><li>Tone: formal / casual / precise</li><li>Formatting: lists vs. prose</li><li>Specify field / role</li></ul><div class="ex"><b>Example:</b> "Always respond in English, concise, without filler phrases."</div></div>
+    <div class="card"><h3>Customise Writing Style</h3><ul><li>Upload own texts as style template</li><li>Claude imitates writing style &amp; tone</li><li>Per chat or as default style</li></ul><div class="ex"><b>Example:</b> Upload LinkedIn posts → Claude writes in the same style.</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><h3>Plans &amp; Limits</h3><ul><li><strong>Free</strong> — basic access, limited messages</li><li><strong>Pro ($20/mo)</strong> — all models, projects, Excel add-in</li><li><strong>Max ($100/mo)</strong> — 5× usage, PPT add-in, Cowork, priority</li><li><strong>Team ($25/user/mo)</strong> — shared projects, central management</li><li><strong>Enterprise</strong> — SSO, compliance, SCIM, admin controls</li></ul><div class="tip">→ Account setup: <a href="#" onclick="sw(13);return false;">Tab 15</a> · Models: <a href="#" onclick="sw(15);return false;">Tab 03</a></div></div>
+    <div class="card-dark"><h3>Security &amp; Do-Nots</h3><ul class="dl"><li>Never enter passwords, banking details or API keys</li><li>No permanent deletions without confirmation</li><li>Don't have document sharing permissions changed</li><li>No reproduction of copyright-protected text</li><li>Only use Excel/PPT with trusted files</li></ul></div>
+  </div>
+</div>
+</div>
 
 <!-- S11: NETZ-BOT -->
 <div class="sec" id="s11">
+<div data-lang="de" class="lang-visible">
   <div class="bot-box">
     <h3>Was ist NETZ-BOT?</h3>
     <p style="color:#ccc;font-size:10.5px;line-height:1.5;margin-bottom:10px;">NETZ-BOT ist der auf netzstrategen zugeschnittene Claude-Assistent — konfiguriert mit internen Skills, CI-Regeln, Gedächtniseinträgen und Konnektoren.</p>
@@ -435,9 +616,26 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card"><h3>Beispiel-Prompts</h3><ul><li>„Erstell ein Angebot für [Kunde] als PPT im CI"</li><li>„Leg in Asana Tasks für den Q2-Launch an"</li><li>„Dokumentiere diese Entscheidung in Notion"</li><li>„Finde die Q3-Präsentation in Google Drive"</li></ul></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="bot-box">
+    <h3>What is NETZ-BOT?</h3>
+    <p style="color:#ccc;font-size:10.5px;line-height:1.5;margin-bottom:10px;">NETZ-BOT is the Claude assistant tailored for netzstrategen — configured with internal skills, CI rules, memory entries and connectors. It knows the company structure, tech stack and agency workflows.</p>
+    <div class="g3">
+      <div style="background:#1a1a1a;border-radius:3px;padding:9px 11px;"><div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:4px;">Base</div><ul class="dl"><li>Claude Sonnet 4.6 as model</li><li>netzstrategen CI automatically active</li><li>Org memory preloaded</li></ul></div>
+      <div style="background:#1a1a1a;border-radius:3px;padding:9px 11px;"><div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:4px;">Connectors</div><ul class="dl"><li>Notion, Asana, Google Drive</li><li>Gmail, Calendar, HubSpot</li></ul></div>
+      <div style="background:#1a1a1a;border-radius:3px;padding:9px 11px;"><div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:4px;">Use cases</div><ul class="dl"><li>Client presentations in CI</li><li>Task management from chat</li><li>Onboarding &amp; knowledge management</li></ul></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card"><h3>Set Up NETZ-BOT</h3><ul><li>claude.ai → New project: "NETZ-BOT"</li><li>Insert project instructions (copy-paste from Notion)</li><li>Configure CI skill + connectors</li><li>Upload logo files</li><li>Share with team members</li></ul></div>
+    <div class="card"><h3>Example Prompts</h3><ul><li>"Create a proposal for [Client] as PPT in CI"</li><li>"Add Asana tasks for the Q2 launch"</li><li>"Document this decision in Notion"</li><li>"Find the Q3 presentation in Google Drive"</li></ul></div>
+  </div>
+</div>
+</div>
 
 <!-- S12: PROMPT-TIPPS -->
 <div class="sec" id="s12">
+<div data-lang="de" class="lang-visible">
   <div class="g2">
     <div>
       <div class="card" style="margin-bottom:10px;"><h3>Grundprinzipien</h3><ul><li>Kontext geben: Ziel, Zielgruppe, Format</li><li>Rolle definieren: „Du bist SEO-Experte…"</li><li>Schritt-für-Schritt denken lassen</li><li>Beispiele mitgeben (positiv &amp; negativ)</li><li>Länge &amp; Format explizit angeben</li></ul><div class="ex"><b>Statt:</b> „Schreib einen Blogpost über KI."<br><b>Besser:</b> „600-Wörter-Blogpost für Entscheider im Mittelstand über KI in Marketingteams. Ton: sachlich. Struktur: Intro, 3 Punkte, CTA."</div></div>
@@ -449,9 +647,23 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     </div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g2">
+    <div>
+      <div class="card" style="margin-bottom:10px;"><h3>Core Principles</h3><ul><li>Provide context: goal, target audience, format</li><li>Define a role: "You are an SEO expert…"</li><li>Ask it to think step by step</li><li>Provide examples (positive &amp; negative)</li><li>Specify length &amp; format explicitly</li></ul><div class="ex"><b>Instead of:</b> "Write a blog post about AI."<br><b>Better:</b> "600-word blog post for SMB decision-makers about AI in marketing teams. Tone: factual. Structure: intro, 3 points, CTA."</div></div>
+      <div class="card"><h3>Clarifying Questions</h3><ul><li>"What info do you still need from me?"</li><li>"Ask me about target audience and format first."</li><li>Set as mandatory in project instructions</li></ul></div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:10px;"><h3>For Client Projects</h3><ul><li>Attach the briefing document</li><li>Always mention target audience &amp; KPIs</li><li>Provide industry/competitor context</li><li>Specify tone &amp; language</li></ul><div class="ex"><b>Example:</b> "Here's the briefing for [Client]. SEO strategy for Q3. Target: B2B decision-makers, 35–55."</div></div>
+      <div class="card"><h3>Files &amp; Uploads</h3><ul><li>PDFs, Word, Excel, images, CSVs uploadable</li><li>Claude reads and analyses directly</li><li>Multiple files simultaneously possible</li></ul><div class="ex"><b>Example:</b> "Here are 3 competitor proposals as PDF. Compare services in a table."</div></div>
+    </div>
+  </div>
+</div>
+</div>
 
 <!-- S13: ACCOUNT & TEAM-SETUP -->
 <div class="sec" id="s13">
+<div data-lang="de" class="lang-visible">
   <div class="g2" style="margin-bottom:10px;">
     <div class="card"><h3>Persönlichen Account einrichten</h3>
       <div class="big-label" style="margin-top:4px;">Schritt für Schritt</div>
@@ -472,9 +684,32 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     </div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g2" style="margin-bottom:10px;">
+    <div class="card"><h3>Set Up Personal Account</h3>
+      <div class="big-label" style="margin-top:4px;">Step by step</div>
+      <ul><li>claude.ai → Sign in with netzstrategen email (Team plan)</li><li>User preferences: Settings → Profile → language, tone, role</li><li>Activate connectors: Settings → Connectors</li><li>Enable memory: Settings → Memories</li></ul>
+      <div class="tip">→ Add once in preferences: "I work at netzstrategen as [role]. Always respond in English, concise." — applies to all chats.</div>
+    </div>
+    <div class="card"><h3>Create a Project — Step by Step</h3>
+      <ul><li>claude.ai → <strong>"New Project"</strong></li><li>Give the project a name</li><li>⚙️ Instructions: role, tone, do's &amp; don'ts, client context</li><li>Upload files: briefing, style guide, price list</li><li>Activate connectors (only project-relevant ones)</li><li>Share: Project Settings → Members → invite colleagues</li></ul>
+      <div class="tip" style="border-color:#c00;">⚠️ <strong>Important:</strong> Shared project ≠ shared chats. Individual conversations must be shared separately: Chat → share icon top right → copy link.</div>
+    </div>
+  </div>
+  <div class="card"><h3>Recommended Project Structure</h3>
+    <div class="g4" style="margin-top:6px;">
+      <div class="card-dark"><h3>NETZ-BOT</h3><p style="color:#ccc;font-size:10px;">All · org context, CI, tech stack</p></div>
+      <div><div class="big-label">Discipline teams</div><ul><li>SEO team</li><li>Analytics team</li><li>Content team</li></ul></div>
+      <div><div class="big-label">Client projects</div><ul><li>Briefing, personas</li><li>Client CI, KPIs</li></ul></div>
+      <div><div class="big-label">More details</div><ul><li><a href="#" onclick="sw(4);return false;">Tab 05 — Projects</a></li><li><a href="#" onclick="sw(14);return false;">Tab 16 — Chat vs. Cowork</a></li></ul></div>
+    </div>
+  </div>
+</div>
+</div>
 
 <!-- S14: CHAT- VS. COWORK-PROJEKTE -->
 <div class="sec" id="s14">
+<div data-lang="de" class="lang-visible">
   <div style="margin-bottom:10px;border-radius:3px;overflow:hidden;">
     <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
       <div class="compare-cell compare-head"></div><div class="compare-cell compare-head">Chat-Projekt (claude.ai)</div><div class="compare-cell compare-head">Cowork-Plugin / -Projekt</div>
@@ -496,9 +731,31 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     </div>
   </div>
 </div>
+<div data-lang="en">
+  <div style="margin-bottom:10px;border-radius:3px;overflow:hidden;">
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;"><div class="compare-cell compare-head"></div><div class="compare-cell compare-head">Chat Project (claude.ai)</div><div class="compare-cell compare-head">Cowork Plugin / Project</div></div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;"><div class="compare-cell compare-label">What</div><div class="compare-cell">Persistent context: instructions, files, memory</div><div class="compare-cell">Workflow container: skills, connectors, prompts</div></div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;"><div class="compare-cell compare-label">Focus</div><div class="compare-cell">Knowledge &amp; context management</div><div class="compare-cell">Automation &amp; workflow execution</div></div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid #eee;"><div class="compare-cell compare-label">Sharing</div><div class="compare-cell">✅ Shareable with team (Team/Enterprise)</div><div class="compare-cell" style="color:#c00;font-weight:700;">❌ No direct sharing — pass workflow prompt manually</div></div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;"><div class="compare-cell compare-label">Typical use</div><div class="compare-cell">Client projects, discipline teams, NETZ-BOT</div><div class="compare-cell">Recurring tasks, industry workflows</div></div>
+  </div>
+  <div class="card" style="margin-bottom:10px;"><h3>Decision Guide</h3>
+    <div style="margin-top:6px;">
+      <div class="dec-row" style="font-weight:700;color:#999;border-bottom:2px solid #ddd;">Task<span>Tool</span></div>
+      <div class="dec-row">Store context for a client project for the team<span><span class="dec-badge dec-chat">Chat Project</span></span></div>
+      <div class="dec-row">Automate a recurring task<span><span class="dec-badge dec-cowork">Cowork Plugin</span></span></div>
+      <div class="dec-row">Make briefings permanently available<span><span class="dec-badge dec-chat">Chat Project</span></span></div>
+      <div class="dec-row">Automatically convert Excel → PPT<span><span class="dec-badge dec-cowork">Cowork</span></span></div>
+      <div class="dec-row">Work with team on the same context<span><span class="dec-badge dec-chat">Chat Project</span></span></div>
+      <div class="dec-row">Quick task without setup<span><span class="dec-badge dec-both">Normal Chat</span></span></div>
+    </div>
+  </div>
+</div>
+</div>
 
 <!-- S15: MODELLE IM VERGLEICH -->
 <div class="sec" id="s15">
+<div data-lang="de" class="lang-visible">
   <div style="margin-bottom:10px;border-radius:3px;overflow:hidden;">
     <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;">
       <div class="compare-cell compare-head"></div>
@@ -528,9 +785,26 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card"><h3>Opus 4.7 — Wann?</h3><ul><li>Komplexe Markt- &amp; Wettbewerbsanalysen</li><li>Strategische Dokumente mit Abwägungen</li><li>Claude Design (powered by Opus 4.7)</li><li>Wenn Sonnet das Ergebnis nicht liefert</li></ul><div class="tip">→ Starte mit Sonnet. Wechsle zu Opus nur wenn nötig.</div></div>
   </div>
 </div>
+<div data-lang="en">
+  <div style="margin-bottom:10px;border-radius:3px;overflow:hidden;">
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;"><div class="compare-cell compare-head"></div><div class="compare-cell compare-head">Haiku 4.5</div><div class="compare-cell compare-head" style="background:#1a3abf;">Sonnet 4.6 ★ Standard</div><div class="compare-cell compare-head" style="background:#111;">Opus 4.7 <span style="background:#F4E404;color:#000;font-size:8px;padding:1px 3px;border-radius:2px;margin-left:3px;">NEW</span></div></div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;"><div class="compare-cell compare-label">Speed</div><div class="compare-cell">⚡⚡⚡ Very fast</div><div class="compare-cell" style="background:#f7f9ff;">⚡⚡ Fast</div><div class="compare-cell">⚡ Slower</div></div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;"><div class="compare-cell compare-label">Intelligence</div><div class="compare-cell">★★☆ Base</div><div class="compare-cell" style="background:#f7f9ff;">★★★ Strong · 1M context (beta)</div><div class="compare-cell">★★★★ Best vision &amp; coding</div></div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;"><div class="compare-cell compare-label">Quota/day</div><div class="compare-cell">High</div><div class="compare-cell" style="background:#f7f9ff;">Normal</div><div class="compare-cell">Low — depletes quickly</div></div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;border-bottom:1px solid #eee;"><div class="compare-cell compare-label">Best for</div><div class="compare-cell">Simple, fast tasks</div><div class="compare-cell" style="background:#f7f9ff;">Everything in daily work</div><div class="compare-cell">Complex analyses, design, vision, coding</div></div>
+    <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;gap:0;"><div class="compare-cell compare-label">New Apr 2026</div><div class="compare-cell">—</div><div class="compare-cell" style="background:#f7f9ff;">1M token context (beta)</div><div class="compare-cell">3.75 MP vision · xhigh effort · Claude Design</div></div>
+  </div>
+  <div class="g3">
+    <div class="card"><h3>Haiku 4.5</h3><ul><li>Short summaries</li><li>Simple translations &amp; formatting</li><li>When Sonnet/Opus quota is depleted</li></ul><div class="ex"><b>Example:</b> "Condense these 10 points into 3." → Haiku is enough.</div></div>
+    <div class="card-yellow"><h3>Sonnet 4.6 ★</h3><ul class="yl"><li>Texts, documents, presentations</li><li>Research, analysis, connectors</li><li>All everyday tasks</li><li>1M token context for long docs (beta)</li></ul><div class="tip" style="background:#e8d800;">→ Default. Sonnet is used without explicit selection.</div></div>
+    <div class="card"><h3>Opus 4.7 — When?</h3><ul><li>Complex market &amp; competitor analyses</li><li>Strategic documents with many considerations</li><li>Claude Design (powered by Opus 4.7)</li><li>When Sonnet doesn't deliver the result</li></ul><div class="tip">→ Start with Sonnet. Switch to Opus only when needed.</div></div>
+  </div>
+</div>
+</div>
 
 <!-- S16: CLAUDE DESIGN -->
 <div class="sec" id="s16">
+<div data-lang="de" class="lang-visible">
   <div class="design-hero">
     <div class="design-badge">NEU · 17. April 2026 · Research Preview</div>
     <h2>Claude Design</h2>
@@ -553,9 +827,34 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card"><h3>Einschränkungen</h3><ul><li>Research Preview — noch nicht Production-ready</li><li>Texte können halluzinieren → immer prüfen</li><li>Kein Ersatz für professionelle Figma-Workflows</li><li>Ideal: Ideation und Rapid Prototyping</li></ul></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="design-hero">
+    <div class="design-badge">NEW · April 17, 2026 · Research Preview</div>
+    <h2>Claude Design</h2>
+    <p>AI-powered visual design tool — prototypes, slides, one-pagers, UI mockups from text prompts. No design background needed. Powered by Claude Opus 4.7.</p>
+  </div>
+  <div class="g2" style="margin-bottom:10px;">
+    <div class="card"><h3>What Claude Design Can Do</h3><ul><li>Create web prototypes, app wireframes from prompts</li><li>Slide decks, one-pagers, marketing materials</li><li>Read design system from codebase and design files</li><li>Automatically apply colours, typography &amp; components</li><li>Web capture: grab elements directly from your website</li><li>Export + handoff to Claude Code</li></ul><div class="ex"><b>Example:</b> "Prototype a mobile meditation app with calming typography and nature-inspired colours."</div></div>
+    <div class="card"><h3>How It Works</h3>
+      <div class="big-label" style="margin-top:4px;">Onboarding</div>
+      <ul><li>Claude reads codebase &amp; design files at setup</li><li>Automatically creates a design system for the team</li><li>Every subsequent project: CI automatically correct</li></ul>
+      <div class="big-label" style="margin-top:8px;">Input options</div>
+      <ul><li>Text prompt: direct description</li><li>Upload document: DOCX, PPTX, XLSX</li><li>Link to codebase</li><li>Web capture: grab elements from website</li></ul>
+      <div class="big-label" style="margin-top:8px;">Output</div>
+      <ul><li>Interactive prototype in the browser</li><li>Export as PDF + handoff to Claude Code</li></ul>
+    </div>
+  </div>
+  <div class="g3">
+    <div class="card"><h3>Availability</h3><ul><li>Pro, Max, Team, Enterprise ✅</li><li>Enterprise: off by default, admin enables</li><li>Own quota — doesn't count against chat quota</li><li>Access: claude.ai → palette icon in left sidebar</li></ul></div>
+    <div class="card-yellow"><h3>When to Use?</h3><ul class="yl"><li>Client prototypes without Figma</li><li>Pitch deck &amp; presentation layouts</li><li>Landing page wireframes</li><li>Quick visualisation of ideas</li></ul></div>
+    <div class="card"><h3>Limitations</h3><ul><li>Research preview — not yet production-ready</li><li>Text can hallucinate → always verify</li><li>Not a replacement for professional Figma workflows</li><li>Ideal: ideation and rapid prototyping</li></ul></div>
+  </div>
+</div>
+</div>
 
 <!-- S17: GEPLANTE AUFGABEN -->
 <div class="sec" id="s17">
+<div data-lang="de" class="lang-visible">
   <div class="g2" style="margin-bottom:10px;">
     <div class="card"><h3>Was sind geplante Aufgaben?</h3><p class="desc">In Claude Cowork können Workflows <strong>zeitgesteuert automatisch ausgeführt</strong> werden — ähnlich wie ein Cronjob, per natürlicher Sprache konfigurierbar.</p>
       <div style="margin-top:8px;"><div class="big-label">So einrichten</div><ul><li>Cowork → Aufgabe erstellen (Prompt oder Plugin)</li><li>„Einplanen" → Uhrzeit, Wochentag, Intervall</li><li>Einmalig, täglich oder wöchentlich</li></ul></div>
@@ -575,40 +874,81 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
     <div class="card"><h3>Einschränkungen</h3><ul><li>Läuft nur wenn Cowork aktiv auf dem Gerät</li><li>Aktionen mit manueller Bestätigung (E-Mails senden) vorher als „automatisch erlaubt" konfigurieren</li><li>Ab Pro-Plan verfügbar</li></ul></div>
   </div>
 </div>
+<div data-lang="en">
+  <div class="g2" style="margin-bottom:10px;">
+    <div class="card"><h3>What Are Scheduled Tasks?</h3><p class="desc">In Claude Cowork, workflows can be <strong>executed automatically on a schedule</strong> — like a cron job, but configurable in natural language.</p>
+      <div style="margin-top:8px;"><div class="big-label">How to set up</div><ul><li>Cowork → create task (prompt or plugin)</li><li>"Schedule" → set time, weekday, interval</li><li>Once, daily or weekly</li></ul></div>
+      <div class="tip">→ Computer must be on, Cowork runs in background. Available from Pro plan.<br>→ <strong>New:</strong> Claude Code Routines run cloud-based — Mac doesn't need to be online. → <a href="#" onclick="sw(2);return false;">Tab 02</a></div>
+    </div>
+    <div class="card-dark"><h3>Use Cases at netzstrategen</h3>
+      <div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:4px;">DAILY</div>
+      <ul class="dl" style="margin-bottom:7px;"><li>08:00: Open Asana tasks → Notion note</li><li>17:00: Scan Google Drive for new client documents</li></ul>
+      <div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:4px;">WEEKLY</div>
+      <ul class="dl" style="margin-bottom:7px;"><li>Monday: MITE data → Excel weekly report → Drive</li><li>Friday: Asana status → Gmail draft</li></ul>
+      <div style="color:#F4E404;font-size:10px;font-weight:700;margin-bottom:4px;">MONTHLY</div>
+      <ul class="dl"><li>1st of month: Campaign data → report → Drive</li></ul>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card"><h3>Combination with Plugins</h3><ul><li>Create plugin "Monthly SEO Report"</li><li>Schedule plugin for 1st of each month</li><li>Claude executes fully: fetch data → analyse → report → Drive</li></ul><div class="tip">→ Always test the workflow manually once before scheduling.</div></div>
+    <div class="card"><h3>Limitations</h3><ul><li>Only runs when Cowork is active on the device</li><li>Actions requiring manual confirmation (e.g. sending emails) must be configured as "automatically allowed"</li><li>Available from Pro plan</li></ul></div>
+  </div>
+</div>
+</div>
 
 </div><!-- /content -->
 
 <div class="nav-bar">
-  <button class="nav-btn" id="btn-prev" onclick="nav(-1)">← Zurück</button>
+  <button class="nav-btn" id="btn-prev" onclick="nav(-1)"><span data-lang="de" class="lang-visible">← Zurück</span><span data-lang="en">← Back</span></button>
   <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
   <span class="nav-label" id="nav-label"></span>
-  <button class="nav-btn" id="btn-next" onclick="nav(1)">Weiter →</button>
+  <button class="nav-btn" id="btn-next" onclick="nav(1)"><span data-lang="de" class="lang-visible">Weiter →</span><span data-lang="en">Next →</span></button>
 </div>
 <div class="bottombar"></div>
-<div class="footer-info">netzstrategen · Claude Cheat Sheet (intern) · April 2026 · claude.ai</div>
+<div class="footer-info"><span data-lang="de" class="lang-visible">netzstrategen · Claude Cheat Sheet (intern) · April 2026 · claude.ai</span><span data-lang="en">netzstrategen · Claude Cheat Sheet (internal) · April 2026 · claude.ai</span></div>
 </div>
 
 <script>
 // ─── TAB DATA ───────────────────────────────────────────────────────────────
+// Current language
+let lang = 'de';
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-de').classList.toggle('active', l==='de');
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.documentElement.lang = l;
+  // Toggle all lang elements
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    el.classList.toggle('lang-visible', el.getAttribute('data-lang') === l);
+  });
+  // Re-render subnav with new labels
+  if(activeGroup) renderSubnav(activeGroup, cur);
+  // Reset search index (labels changed)
+  searchIndex = null;
+  // Update search placeholder
+  document.getElementById('search-input').placeholder = l === 'de' ? 'Suche im Cheat Sheet…' : 'Search the cheat sheet…';
+}
+
 const TABS = [
-  {id:0,  label:'🆕 Neuigkeiten',              group:'news', intro:'Alle aktuellen Änderungen und neuen Features auf einen Blick — mit direkten Links zu den betreffenden Abschnitten.'},
-  {id:1,  label:'01 · Überblick',              group:'a',    badge:'updated', intro:'Kurze Orientierung: Was Claude ist, was es kann — und wie die verschiedenen Interfaces zusammenspielen.'},
-  {id:2,  label:'02 · Chat / Cowork / Code',   group:'a',    badge:'updated', intro:'<strong>claude.ai</strong> ist das tägliche Chat-Interface. <strong>Cowork</strong> ist GA auf Mac/Windows. <strong>Claude Code</strong> wurde redesigned mit Multi-Session und Routines.'},
-  {id:15, label:'03 · Modelle im Vergleich',   group:'a',    badge:'updated', intro:'<strong>Haiku 4.5</strong> (schnell), <strong>Sonnet 4.6</strong> (Standard, 1M Kontext), <strong>Opus 4.7</strong> (stärkste Vision &amp; Coding, NEU).'},
-  {id:3,  label:'04 · Plugins &amp; Add-ins', group:'b',    badge:'',        intro:'Plugins bringen Claude direkt in andere Anwendungen: <strong>Excel &amp; PowerPoint Add-ins</strong>, <strong>Claude in Chrome</strong>, Cowork-Plugins und neu: <strong>Claude Design</strong>.'},
-  {id:4,  label:'05 · Projekte',               group:'b',    badge:'',        intro:'<strong>Projekte</strong> sind persistente Arbeitsbereiche mit eigenem Kontext, Instruktionen und Dateien — ideal für Kundenprojekte und Team-Workflows.'},
-  {id:5,  label:'06 · Artefakte &amp; Docs',  group:'b',    badge:'',        intro:'Claude erstellt <strong>herunterladbare Dateien</strong> in allen Formaten — Word, PPT, Excel, PDF, HTML, React — sowie Inline-Visualisierungen im Chat.'},
-  {id:6,  label:'07 · Skills &amp; CI',       group:'b',    badge:'',        intro:'<strong>Skills</strong> sind org-spezifische Wissenspakete. Der <strong>netzstrategen-CI-Skill</strong> sorgt für automatisch korrektes Corporate Design.'},
-  {id:7,  label:'08 · Konnektoren',            group:'b',    badge:'',        intro:'<strong>Konnektoren</strong> verbinden Claude über MCP mit Notion, Asana, Gmail, Google Drive, HubSpot, Figma, Canva — direkt aus dem Chat.'},
-  {id:8,  label:'09 · Tools &amp; Suche',     group:'b',    badge:'',        intro:'Claude hat Zugriff auf <strong>Web-Suche</strong>, <strong>Deep Research</strong>, <strong>Code-Ausführung</strong> und <strong>Inline-Visualisierungen</strong>.'},
-  {id:9,  label:'10 · Gedächtnis',             group:'b',    badge:'',        intro:'<strong>Gedächtnis</strong> erlaubt Claude, sich Infos aus vergangenen Gesprächen zu merken. Aktive netzstrategen-Einträge sind hier dokumentiert.'},
-  {id:16, label:'11 · Claude Design',          group:'b',    badge:'new',     intro:'<strong>Claude Design</strong> (NEU, 17. April 2026): KI-gestütztes Visual-Design-Tool für Prototypen, Slides und UI-Mockups — powered by Opus 4.7.'},
-  {id:10, label:'12 · Einstellungen',          group:'c',    badge:'',        intro:'Alle <strong>Features</strong> lassen sich an- und abschalten. <strong>Nutzervorlieben</strong> steuern Ton, Format und Sprache.'},
-  {id:11, label:'13 · NETZ-BOT',              group:'c',    badge:'',        intro:'<strong>NETZ-BOT</strong> ist der auf netzstrategen zugeschnittene Claude-Assistent — mit CI-Skill, Org-Gedächtnis und allen Konnektoren.'},
-  {id:12, label:'14 · Prompt-Tipps',          group:'c',    badge:'',        intro:'Tipps für <strong>effektive Prompts</strong>: Kontext geben, Rolle definieren, Format vorgeben, Klarheitsfragen nutzen.'},
-  {id:13, label:'15 · Account &amp; Team',    group:'c',    badge:'',        intro:'Wie jede Person ihren <strong>Account</strong> einrichtet und wie <strong>Team-Projekte</strong> optimal aufgesetzt und geteilt werden.'},
-  {id:14, label:'16 · Chat vs. Cowork',       group:'c',    badge:'',        intro:'Unterschied zwischen <strong>Chat-Projekt</strong> und <strong>Cowork-Plugin</strong>? Vergleich, Beispiele und Entscheidungshilfe.'},
-  {id:17, label:'17 · Geplante Aufgaben',     group:'c',    badge:'',        intro:'Mit <strong>geplanten Aufgaben</strong> in Claude Cowork lassen sich Workflows zeitgesteuert automatisch ausführen.'}
+  {id:0,  group:'news', badge:'',       de:{label:'🆕 Neuigkeiten',            intro:'Alle aktuellen Änderungen und neuen Features auf einen Blick — mit direkten Links zu den betreffenden Abschnitten.'}, en:{label:'🆕 News',                    intro:'All current changes and new features at a glance — with direct links to the relevant sections.'}},
+  {id:1,  group:'a',    badge:'updated',de:{label:'01 · Überblick',            intro:'Kurze Orientierung: Was Claude ist, was es kann — und wie die verschiedenen Interfaces zusammenspielen.'}, en:{label:'01 · Overview',               intro:'A quick orientation: what Claude is, what it can do — and how the different interfaces work together.'}},
+  {id:2,  group:'a',    badge:'updated',de:{label:'02 · Chat / Cowork / Code', intro:'<strong>claude.ai</strong> ist das tägliche Chat-Interface. <strong>Cowork</strong> ist GA auf Mac/Windows. <strong>Claude Code</strong> wurde redesigned.'}, en:{label:'02 · Chat / Cowork / Code',  intro:'<strong>claude.ai</strong> is the everyday chat interface. <strong>Cowork</strong> is GA on Mac/Windows. <strong>Claude Code</strong> redesigned with multi-session and Routines.'}},
+  {id:15, group:'a',    badge:'updated',de:{label:'03 · Modelle im Vergleich', intro:'<strong>Haiku 4.5</strong> (schnell), <strong>Sonnet 4.6</strong> (Standard, 1M Kontext), <strong>Opus 4.7</strong> (stärkste Vision &amp; Coding, NEU).'}, en:{label:'03 · Model Comparison',      intro:'<strong>Haiku 4.5</strong> (fast), <strong>Sonnet 4.6</strong> (standard, 1M context), <strong>Opus 4.7</strong> (best vision &amp; coding, NEW).'}},
+  {id:3,  group:'b',    badge:'',       de:{label:'04 · Plugins &amp; Add-ins',intro:'Plugins bringen Claude direkt in andere Anwendungen: <strong>Excel &amp; PowerPoint</strong>, <strong>Claude in Chrome</strong>, Cowork-Plugins und neu: <strong>Claude Design</strong>.'}, en:{label:'04 · Plugins &amp; Add-ins', intro:'Plugins bring Claude directly into other applications: <strong>Excel &amp; PowerPoint</strong>, <strong>Claude in Chrome</strong>, Cowork plugins and new: <strong>Claude Design</strong>.'}},
+  {id:4,  group:'b',    badge:'',       de:{label:'05 · Projekte',             intro:'<strong>Projekte</strong> sind persistente Arbeitsbereiche mit eigenem Kontext, Instruktionen und Dateien — ideal für Kundenprojekte und Team-Workflows.'}, en:{label:'05 · Projects',              intro:'<strong>Projects</strong> are persistent workspaces with their own context, instructions and files — ideal for client projects and team workflows.'}},
+  {id:5,  group:'b',    badge:'',       de:{label:'06 · Artefakte &amp; Docs', intro:'Claude erstellt <strong>herunterladbare Dateien</strong> in allen Formaten — Word, PPT, Excel, PDF, HTML, React — sowie Inline-Visualisierungen im Chat.'}, en:{label:'06 · Artifacts &amp; Docs',  intro:'Claude creates <strong>downloadable files</strong> in all formats — Word, PPT, Excel, PDF, HTML, React — plus inline visualisations in chat.'}},
+  {id:6,  group:'b',    badge:'',       de:{label:'07 · Skills &amp; CI',      intro:'<strong>Skills</strong> sind org-spezifische Wissenspakete. Der <strong>netzstrategen-CI-Skill</strong> sorgt für automatisch korrektes Corporate Design.'}, en:{label:'07 · Skills &amp; CI',       intro:'<strong>Skills</strong> are org-specific knowledge packages. The <strong>netzstrategen CI skill</strong> ensures automatically correct corporate design.'}},
+  {id:7,  group:'b',    badge:'',       de:{label:'08 · Konnektoren',          intro:'<strong>Konnektoren</strong> verbinden Claude über MCP mit Notion, Asana, Gmail, Google Drive, HubSpot, Figma, Canva — direkt aus dem Chat.'}, en:{label:'08 · Connectors',            intro:'<strong>Connectors</strong> link Claude via MCP to Notion, Asana, Gmail, Google Drive, HubSpot, Figma, Canva — directly from the chat.'}},
+  {id:8,  group:'b',    badge:'',       de:{label:'09 · Tools &amp; Suche',    intro:'Claude hat Zugriff auf <strong>Web-Suche</strong>, <strong>Deep Research</strong>, <strong>Code-Ausführung</strong> und <strong>Inline-Visualisierungen</strong>.'}, en:{label:'09 · Tools &amp; Search',    intro:'Claude has access to <strong>web search</strong>, <strong>deep research</strong>, <strong>code execution</strong> and <strong>inline visualisations</strong>.'}},
+  {id:9,  group:'b',    badge:'',       de:{label:'10 · Gedächtnis',           intro:'<strong>Gedächtnis</strong> erlaubt Claude, sich Infos aus vergangenen Gesprächen zu merken. Aktive netzstrategen-Einträge sind hier dokumentiert.'}, en:{label:'10 · Memory',                intro:'<strong>Memory</strong> allows Claude to remember information from past conversations. Active netzstrategen entries are documented here.'}},
+  {id:16, group:'b',    badge:'new',    de:{label:'11 · Claude Design',        intro:'<strong>Claude Design</strong> (NEU, 17. April 2026): KI-gestütztes Visual-Design-Tool für Prototypen, Slides und UI-Mockups — powered by Opus 4.7.'}, en:{label:'11 · Claude Design',        intro:'<strong>Claude Design</strong> (NEW, April 17, 2026): AI-powered visual design tool for prototypes, slides and UI mockups — powered by Opus 4.7.'}},
+  {id:10, group:'c',    badge:'',       de:{label:'12 · Einstellungen',        intro:'Alle <strong>Features</strong> lassen sich an- und abschalten. <strong>Nutzervorlieben</strong> steuern Ton, Format und Sprache.'}, en:{label:'12 · Settings',              intro:'All <strong>features</strong> can be toggled on and off. <strong>User preferences</strong> control tone, format and language.'}},
+  {id:11, group:'c',    badge:'',       de:{label:'13 · NETZ-BOT',             intro:'<strong>NETZ-BOT</strong> ist der auf netzstrategen zugeschnittene Claude-Assistent — mit CI-Skill, Org-Gedächtnis und allen Konnektoren.'}, en:{label:'13 · NETZ-BOT',             intro:'<strong>NETZ-BOT</strong> is the Claude assistant tailored for netzstrategen — with CI skill, org memory and all connectors.'}},
+  {id:12, group:'c',    badge:'',       de:{label:'14 · Prompt-Tipps',         intro:'Tipps für <strong>effektive Prompts</strong>: Kontext geben, Rolle definieren, Format vorgeben, Klarheitsfragen nutzen.'}, en:{label:'14 · Prompt Tips',           intro:'Tips for <strong>effective prompts</strong>: provide context, define a role, specify format, use clarifying questions.'}},
+  {id:13, group:'c',    badge:'',       de:{label:'15 · Account &amp; Team',   intro:'Wie jede Person ihren <strong>Account</strong> einrichtet und wie <strong>Team-Projekte</strong> optimal aufgesetzt und geteilt werden.'}, en:{label:'15 · Account &amp; Team',    intro:'How each person sets up their <strong>account</strong> and how <strong>team projects</strong> are optimally configured and shared.'}},
+  {id:14, group:'c',    badge:'',       de:{label:'16 · Chat vs. Cowork',      intro:'Unterschied zwischen <strong>Chat-Projekt</strong> und <strong>Cowork-Plugin</strong>? Vergleich, Beispiele und Entscheidungshilfe.'}, en:{label:'16 · Chat vs. Cowork',       intro:'Difference between <strong>chat project</strong> and <strong>Cowork plugin</strong>? Comparison, examples and decision guide.'}},
+  {id:17, group:'c',    badge:'',       de:{label:'17 · Geplante Aufgaben',    intro:'Mit <strong>geplanten Aufgaben</strong> in Claude Cowork lassen sich Workflows zeitgesteuert automatisch ausführen.'}, en:{label:'17 · Scheduled Tasks',       intro:'With <strong>scheduled tasks</strong> in Claude Cowork, workflows can be executed automatically on a schedule.'}}
 ];
 
 const TOTAL = TABS.length;
@@ -630,7 +970,7 @@ function sw(tabId) {
   cur = tabId;
 
   // intro text
-  document.getElementById('intro-text').innerHTML = tab ? tab.intro : '';
+  document.getElementById('intro-text').innerHTML = tab ? tab[lang].intro : '';
 
   // progress
   const pos = TABS.findIndex(t => t.id === tabId);
@@ -683,7 +1023,7 @@ function renderSubnav(grp, activeId) {
         ? '<span class="item-updated">↑</span>'
         : '';
     const activeClass = t.id === activeId ? ' active' : '';
-    return `<div class="subnav-item${activeClass}" onclick="sw(${t.id})">${t.label}${badgeHtml}</div>`;
+    return `<div class="subnav-item${activeClass}" onclick="sw(${t.id})">${t[lang].label}${badgeHtml}</div>`;
   }).join('');
   subnav.classList.add('visible');
 }
@@ -703,7 +1043,7 @@ function buildSearchIndex() {
     if (!tab) return;
     sec.querySelectorAll('h3, h4, li, p.desc, .ex, .tip').forEach(el => {
       const t = el.textContent.trim();
-      if (t.length > 5) index.push({tabId: id, tabLabel: tab.label, text: t});
+      if (t.length > 5) index.push({tabId: id, tabLabel: tab[lang].label, text: t});
     });
   });
   return index;
