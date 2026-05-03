@@ -163,6 +163,21 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
 .design-hero h2{font-size:16px;font-weight:800;margin-bottom:4px;}
 .design-hero p{font-size:10.5px;color:rgba(255,255,255,0.8);line-height:1.5;}
 .design-badge{display:inline-block;background:#F4E404;color:#000;font-size:9px;font-weight:800;padding:2px 6px;border-radius:2px;margin-bottom:6px;}
+
+/* ROLE TABS */
+.role-hero{border-radius:3px;padding:12px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;}
+.role-emoji{font-size:32px;flex-shrink:0;}
+.role-hero h2{font-size:15px;font-weight:800;color:#fff;margin-bottom:2px;}
+.role-hero p{font-size:10.5px;color:rgba(255,255,255,0.75);line-height:1.45;}
+.use-case{background:#f2f2f2;border-radius:3px;padding:9px 12px;margin-bottom:7px;}
+.use-case-head{display:flex;align-items:center;gap:7px;margin-bottom:4px;}
+.use-case-num{background:#253FE4;color:#fff;font-size:9px;font-weight:800;width:18px;height:18px;border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.use-case h4{font-size:11px;font-weight:700;color:#000;margin:0;}
+.use-case p{font-size:10px;color:#555;line-height:1.45;margin-bottom:4px;}
+.use-case-links{display:flex;flex-wrap:wrap;gap:4px;}
+.uc-link{background:#fff;border:1px solid #ddd;border-radius:2px;padding:2px 6px;font-size:9px;font-weight:700;color:#253FE4;cursor:pointer;text-decoration:none;}
+.uc-link:hover{background:#253FE4;color:#fff;border-color:#253FE4;}
+
 </style>
 </head>
 <body>
@@ -210,6 +225,11 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
   <!-- Group C -->
   <div class="nav-group">
     <button class="nav-group-btn" id="grp-btn-c" onclick="selectGroup('c')"><span data-lang="de" class="lang-visible">C · Setup &amp; Organisation</span><span data-lang="en">C · Setup &amp; Organisation</span></button>
+  </div>
+
+  <!-- Group D: Für deine Rolle -->
+  <div class="nav-group">
+    <button class="nav-group-btn" id="grp-btn-d" onclick="selectGroup('d')"><span data-lang="de" class="lang-visible">D · Für deine Rolle</span><span data-lang="en">D · For Your Role</span></button>
   </div>
 
 </div>
@@ -896,6 +916,217 @@ code{background:#e5e5e5;padding:1px 3px;border-radius:2px;font-size:9.5px;font-f
 </div>
 </div>
 
+
+<!-- S18: DESIGNER -->
+<div class="sec" id="s18">
+  <div data-lang="de" class="lang-visible">
+    <div class="role-hero" style="background:#253FE4;">
+      <div class="role-emoji">🎨</div>
+      <div><h2>Claude für Designer</h2><p>Visuals, Präsentationen, Prototypen und CI-konforme Outputs — ohne Tool-Wechsel.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Präsentationen im Corporate Design</h4></div><p>Claude erstellt PPT-Folien direkt im netzstrategen-CI — Farben, Fonts, Logo-Platzierung automatisch korrekt. Kein manuelles Nachformatieren.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artefakte</a><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>Prototypen & Mockups mit Claude Design</h4></div><p>UI-Mockups, Landing Pages und App-Wireframes aus Textprompts — kein Figma-Kenntnisse nötig. Powered by Opus 4.7, liest Codebase für automatisches Design-System.</p><div class="use-case-links"><a class="uc-link" onclick="sw(16);return false;">Tab 11 · Claude Design</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>Visuals für LinkedIn & Social</h4></div><p>SVG-Infografiken, Schaubilder und Social-Assets direkt aus dem Chat — im CI, mit echtem Logo eingebettet. Canva-Konnektor für weitergehende Anpassungen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools</a><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Kreative Konnektoren: Adobe, Figma & mehr</h4></div><p>Claude ist direkt mit Figma, Adobe, Blender und Canva verbunden. Design-Assets abrufen, Diagramme generieren, Mockups übergeben — ohne Copy-Paste.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Kunden-Briefings visuell aufbereiten</h4></div><p>Briefing als PDF hochladen → Claude extrahiert Kernaussagen und erstellt ein strukturiertes One-Pager-Layout oder eine Zusammenfassungs-PPT.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artefakte</a><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projekte</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>CI-Regeln als Projekt hinterlegen</h4></div><p>Logo-Dateien, Styleguide und CI-Regeln einmalig als Projekt-Dateien hochladen — jeder Chat kennt automatisch die Corporate Identity ohne erneutes Briefing.</p><div class="use-case-links"><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projekte</a><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Starte mit: <em>„Erstell mir eine 6-seitige Kunden-Präsentation im netzstrategen-CI über [Thema]. Hier ist das Briefing."</em></div>
+  </div>
+  <div data-lang="en">
+    <div class="role-hero" style="background:#253FE4;">
+      <div class="role-emoji">🎨</div>
+      <div><h2>Claude for Designers</h2><p>Visuals, presentations, prototypes and CI-compliant outputs — without switching tools.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Presentations in Corporate Design</h4></div><p>Claude creates PPT slides directly in netzstrategen CI — colours, fonts, logo placement automatically correct. No manual reformatting needed.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artifacts</a><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>Prototypes & Mockups with Claude Design</h4></div><p>UI mockups, landing pages and app wireframes from text prompts — no Figma knowledge needed. Powered by Opus 4.7, reads codebase for automatic design system.</p><div class="use-case-links"><a class="uc-link" onclick="sw(16);return false;">Tab 11 · Claude Design</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>Visuals for LinkedIn & Social</h4></div><p>SVG infographics, diagrams and social assets directly from chat — in CI, with real logo embedded. Canva connector for further customisation.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools</a><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Creative Connectors: Adobe, Figma & more</h4></div><p>Claude connects directly to Figma, Adobe, Blender and Canva. Retrieve design assets, generate diagrams, hand off mockups — no copy-paste.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Visually Prepare Client Briefings</h4></div><p>Upload briefing as PDF → Claude extracts key messages and creates a structured one-pager layout or summary PPT.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artifacts</a><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projects</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>Store CI Rules as a Project</h4></div><p>Upload logo files, style guide and CI rules once as project files — every chat automatically knows the corporate identity without re-briefing.</p><div class="use-case-links"><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projects</a><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Start with: <em>"Create a 6-page client presentation in netzstrategen CI about [topic]. Here's the briefing."</em></div>
+  </div>
+</div>
+
+<!-- S19: ENTWICKLER -->
+<div class="sec" id="s19">
+  <div data-lang="de" class="lang-visible">
+    <div class="role-hero" style="background:#111;">
+      <div class="role-emoji">👨‍💻</div>
+      <div><h2>Claude für Entwickler</h2><p>Code schreiben, debuggen, analysieren und automatisieren — direkt im Terminal oder im Browser.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Codebasen analysieren & refactorn</h4></div><p>Claude Code liest ganze Repositories, findet Bugs, erklärt Architekturentscheidungen und schlägt Refactorings vor — alles im Terminal, ohne Copy-Paste.</p><div class="use-case-links"><a class="uc-link" onclick="sw(2);return false;">Tab 02 · Claude Code</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>Security-Scans mit /ultrareview</h4></div><p>Eine Flotte von Bug-Hunting-Agenten läuft cloud-basiert und liefert Vulnerability-Findings automatisch zurück ins Terminal. Kein manueller Scan nötig.</p><div class="use-case-links"><a class="uc-link" onclick="sw(2);return false;">Tab 02 · Claude Code</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>Routines: Automatisierungen ohne lokalen Server</h4></div><p>Wiederkehrende Workflows (Tests, Deployments, Reports) als cloud-basierte Routine einrichten — läuft auch wenn der Mac offline ist.</p><div class="use-case-links"><a class="uc-link" onclick="sw(2);return false;">Tab 02 · Cowork/Code</a><a class="uc-link" onclick="sw(17);return false;">Tab 17 · Geplante Aufgaben</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Interaktive Tools & Dashboards bauen</h4></div><p>React-Komponenten, HTML-Kalkulatoren, SVG-Diagramme — direkt aus dem Chat generiert und als Datei herunterladbar. Für interne Tools oder Kunden-Deliverables.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artefakte</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Daten verarbeiten & transformieren</h4></div><p>Python und Bash direkt ausführen: CSVs bereinigen, APIs abfragen, Daten transformieren, Excel-Reports generieren — alles in einem Chat.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools & Suche</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>MCP-Konnektoren nutzen & bauen</h4></div><p>Claude ist über MCP mit Notion, Asana, Google und mehr verbunden. Eigene MCP-Konnektoren für interne Tools bauen und als Skills deployen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Starte mit: <em>„Analysiere dieses Repository auf Security-Lücken und erstelle einen strukturierten Report mit Prioritäten."</em></div>
+  </div>
+  <div data-lang="en">
+    <div class="role-hero" style="background:#111;">
+      <div class="role-emoji">👨‍💻</div>
+      <div><h2>Claude for Developers</h2><p>Write, debug, analyse and automate code — directly in the terminal or browser.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Analyse & Refactor Codebases</h4></div><p>Claude Code reads entire repositories, finds bugs, explains architecture decisions and suggests refactorings — all in the terminal, no copy-paste.</p><div class="use-case-links"><a class="uc-link" onclick="sw(2);return false;">Tab 02 · Claude Code</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>Security Scans with /ultrareview</h4></div><p>A fleet of bug-hunting agents runs cloud-based and delivers vulnerability findings automatically back to the terminal. No manual scan needed.</p><div class="use-case-links"><a class="uc-link" onclick="sw(2);return false;">Tab 02 · Claude Code</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>Routines: Automations Without a Local Server</h4></div><p>Set up recurring workflows (tests, deployments, reports) as cloud-based routines — runs even when Mac is offline.</p><div class="use-case-links"><a class="uc-link" onclick="sw(2);return false;">Tab 02 · Cowork/Code</a><a class="uc-link" onclick="sw(17);return false;">Tab 17 · Scheduled Tasks</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Build Interactive Tools & Dashboards</h4></div><p>React components, HTML calculators, SVG diagrams — generated directly from chat and downloadable as a file. For internal tools or client deliverables.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artifacts</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Process & Transform Data</h4></div><p>Run Python and Bash directly: clean CSVs, query APIs, transform data, generate Excel reports — all in one chat.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools & Search</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>Use & Build MCP Connectors</h4></div><p>Claude connects via MCP to Notion, Asana, Google and more. Build custom MCP connectors for internal tools and deploy them as skills.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Start with: <em>"Analyse this repository for security vulnerabilities and create a structured report with priorities."</em></div>
+  </div>
+</div>
+
+<!-- S20: BERATER -->
+<div class="sec" id="s20">
+  <div data-lang="de" class="lang-visible">
+    <div class="role-hero" style="background:#1a2db0;">
+      <div class="role-emoji">📊</div>
+      <div><h2>Claude für Berater & Analysten</h2><p>Recherche, Analysen, Präsentationen und Kundenkommunikation — schneller und fundierter.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Markt- & Wettbewerbsanalysen</h4></div><p>Deep Research durchsucht systematisch 20+ Quellen und liefert strukturierte Berichte mit Quellenangaben. Opus 4.7 für komplexe strategische Einordnungen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools & Suche</a><a class="uc-link" onclick="sw(15);return false;">Tab 03 · Modelle</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>Pitch-Decks & Strategie-Präsentationen</h4></div><p>Aus Briefing, Recherche und Daten direkt eine strukturierte PPT im CI erstellen — mit Argumentationskette, Charts und konkreten Empfehlungen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artefakte</a><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>Kunden-Projekte mit Kontext aufsetzen</h4></div><p>Briefing, Branchenkontext, KPIs und Persona-Dokumente einmalig als Projekt hinterlegen — alle Kolleg:innen arbeiten mit demselben Wissenstand.</p><div class="use-case-links"><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projekte</a><a class="uc-link" onclick="sw(13);return false;">Tab 15 · Account-Setup</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Datenanalyse & Excel-Reports</h4></div><p>CSVs und Excel-Dateien hochladen → Claude bereinigt, analysiert und erstellt einen strukturierten Report mit Charts und konkreten Handlungsempfehlungen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools</a><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artefakte</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Meetings vorbereiten & nachbereiten</h4></div><p>Agenda erstellen, relevante Unterlagen zusammenfassen, Meeting-Notizen strukturieren und Folgeaufgaben direkt in Asana anlegen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>Angebote & Berichte erstellen</h4></div><p>Word-Dokumente mit Formatierung, Tabellen und CI-konformem Layout — direkt aus dem Chat, fertig zum Versand oder zur Präsentation beim Kunden.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artefakte</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Starte mit: <em>„Recherchiere [Branche/Thema] für einen Kunden-Pitch: Marktgröße, Top-Player, Trends 2026. Strukturierter Report mit Quellenangaben."</em></div>
+  </div>
+  <div data-lang="en">
+    <div class="role-hero" style="background:#1a2db0;">
+      <div class="role-emoji">📊</div>
+      <div><h2>Claude for Consultants & Analysts</h2><p>Research, analyses, presentations and client communication — faster and better informed.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Market & Competitor Analyses</h4></div><p>Deep Research systematically searches 20+ sources and delivers structured reports with references. Opus 4.7 for complex strategic assessments.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools & Search</a><a class="uc-link" onclick="sw(15);return false;">Tab 03 · Models</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>Pitch Decks & Strategy Presentations</h4></div><p>From briefing, research and data directly to a structured PPT in CI — with argumentation, charts and concrete recommendations.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artifacts</a><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>Set Up Client Projects with Context</h4></div><p>Store briefing, industry context, KPIs and persona documents once as a project — all colleagues work with the same knowledge base.</p><div class="use-case-links"><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projects</a><a class="uc-link" onclick="sw(13);return false;">Tab 15 · Account Setup</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Data Analysis & Excel Reports</h4></div><p>Upload CSVs and Excel files → Claude cleans, analyses and creates a structured report with charts and concrete recommendations.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools</a><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artifacts</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Prepare & Follow Up Meetings</h4></div><p>Create agenda, summarise relevant documents, structure meeting notes and create follow-up tasks directly in Asana.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>Create Proposals & Reports</h4></div><p>Word documents with formatting, tables and CI-compliant layout — directly from chat, ready to send or present to clients.</p><div class="use-case-links"><a class="uc-link" onclick="sw(5);return false;">Tab 06 · Artifacts</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Start with: <em>"Research [industry/topic] for a client pitch: market size, top players, trends 2026. Structured report with references."</em></div>
+  </div>
+</div>
+
+<!-- S21: MARKETING -->
+<div class="sec" id="s21">
+  <div data-lang="de" class="lang-visible">
+    <div class="role-hero" style="background:#000;">
+      <div class="role-emoji">📣</div>
+      <div><h2>Claude für Marketing</h2><p>Content, Kampagnen, SEO, Social und Newsletter — von der Idee bis zum fertigen Asset.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Content im netzstrategen-Stil verfassen</h4></div><p>Claude kennt Andrés Schreibstil aus hochgeladenen Texten — LinkedIn-Posts, Newsletter-Ausgaben und Blog-Artikel klingen nach netzstrategen, nicht nach Generic-AI.</p><div class="use-case-links"><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a><a class="uc-link" onclick="sw(10);return false;">Tab 12 · Einstellungen</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>SEO-Recherche & Content-Strategie</h4></div><p>Web-Suche und Deep Research für aktuelle Keyword-Daten, Wettbewerber-Content und Trendthemen. Direkt in eine strukturierte Content-Strategie umwandeln.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools & Suche</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>LinkedIn-Visuals & Social Assets</h4></div><p>1080×1080 PNG-Visuals für LinkedIn-Posts direkt aus dem Chat — im CI, mit eingebettetem Logo, Sprunglinks zu Schaubildern und Prompt-Pills.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools</a><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Newsletter-Ausgaben produzieren</h4></div><p>Rohmaterial übergeben → Claude schreibt im Digital Impact Newsletter-Stil: Ich-Perspektive, direkte Ansprache, praxisnahe Beispiele aus der netzstrategen-Welt.</p><div class="use-case-links"><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Kampagnen-Daten analysieren</h4></div><p>CSV-Exports aus Google Ads, Meta oder HubSpot hochladen → Claude bereinigt, analysiert und erstellt einen Kampagnen-Report mit Handlungsempfehlungen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools</a><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>Canva & Creative Konnektoren</h4></div><p>Canva direkt aus dem Chat steuern: Social-Assets, Event-Visuals und LinkedIn-Grafiken erstellen. Adobe-Konnektor für Photoshop-Workflows.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Starte mit: <em>„Schreib einen LinkedIn-Post im netzstrategen-Stil über [Thema]. Kurz, direkt, mit einer konkreten Beobachtung aus der Praxis. Link kommt in den ersten Kommentar."</em></div>
+  </div>
+  <div data-lang="en">
+    <div class="role-hero" style="background:#000;">
+      <div class="role-emoji">📣</div>
+      <div><h2>Claude for Marketing</h2><p>Content, campaigns, SEO, social and newsletters — from idea to finished asset.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Write Content in netzstrategen Style</h4></div><p>Claude knows André's writing style from uploaded texts — LinkedIn posts, newsletter editions and blog articles sound like netzstrategen, not generic AI.</p><div class="use-case-links"><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a><a class="uc-link" onclick="sw(10);return false;">Tab 12 · Settings</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>SEO Research & Content Strategy</h4></div><p>Web search and Deep Research for current keyword data, competitor content and trending topics. Convert directly into a structured content strategy.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools & Search</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>LinkedIn Visuals & Social Assets</h4></div><p>1080×1080 PNG visuals for LinkedIn posts directly from chat — in CI, with embedded logo, jump links to diagrams and prompt pills.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools</a><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Produce Newsletter Editions</h4></div><p>Hand over raw material → Claude writes in the Digital Impact Newsletter style: first-person perspective, direct address, practical examples from netzstrategen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(6);return false;">Tab 07 · Skills & CI</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Analyse Campaign Data</h4></div><p>Upload CSV exports from Google Ads, Meta or HubSpot → Claude cleans, analyses and creates a campaign report with recommendations.</p><div class="use-case-links"><a class="uc-link" onclick="sw(8);return false;">Tab 09 · Tools</a><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>Canva & Creative Connectors</h4></div><p>Control Canva directly from chat: create social assets, event visuals and LinkedIn graphics. Adobe connector for Photoshop workflows.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Start with: <em>"Write a LinkedIn post in netzstrategen style about [topic]. Short, direct, with a concrete practical observation. Link goes in the first comment."</em></div>
+  </div>
+</div>
+
+<!-- S22: PROJEKTMANAGEMENT -->
+<div class="sec" id="s22">
+  <div data-lang="de" class="lang-visible">
+    <div class="role-hero" style="background:#253FE4;">
+      <div class="role-emoji">📋</div>
+      <div><h2>Claude für Projektmanagement</h2><p>Planung, Kommunikation, Reporting und Koordination — alles ohne Tool-Wechsel aus dem Chat.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Asana-Tasks direkt aus dem Chat</h4></div><p>Tasks anlegen, Deadlines setzen, Abhängigkeiten definieren und Projektstatus abrufen — alles über den Asana-Konnektor, ohne die App zu öffnen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>Projektkontext für das gesamte Team</h4></div><p>Briefing, Rollen, Timelines und KPIs einmalig als Chat-Projekt hinterlegen — alle Beteiligten starten mit demselben Wissenstand, ohne erneutes Einlesen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projekte</a><a class="uc-link" onclick="sw(13);return false;">Tab 15 · Account-Setup</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>Status-Reports & Projekt-Updates</h4></div><p>Asana-Daten abrufen, Google Drive nach aktuellen Dokumenten scannen und daraus automatisch einen strukturierten Wochen- oder Monatsbericht erstellen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a><a class="uc-link" onclick="sw(17);return false;">Tab 17 · Geplante Aufgaben</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Meetings vorbereiten & dokumentieren</h4></div><p>Agenda aus Asana-Tasks generieren, Meeting-Notizen strukturieren, Entscheidungen in Notion dokumentieren und Folgeaufgaben automatisch anlegen.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Automatisierte Weekly-Reports</h4></div><p>Geplante Aufgabe einrichten: Jeden Freitag 16:00 Asana-Status abrufen, zusammenfassen und als Gmail-Entwurf vorbereiten — fertig zum Versand.</p><div class="use-case-links"><a class="uc-link" onclick="sw(17);return false;">Tab 17 · Geplante Aufgaben</a><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Konnektoren</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>Onboarding neuer Teammitglieder</h4></div><p>Onboarding-Projekt mit allen relevanten Dokumenten, Prozessen und Ansprechpartnern als Chat-Projekt anlegen — neues Teammitglied hat sofort Zugang zu allem.</p><div class="use-case-links"><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projekte</a><a class="uc-link" onclick="sw(11);return false;">Tab 13 · NETZ-BOT</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Starte mit: <em>„Zeig mir alle offenen Asana-Tasks für [Projekt] mit Deadline diese Woche. Erstelle daraus eine Tages-Agenda für heute."</em></div>
+  </div>
+  <div data-lang="en">
+    <div class="role-hero" style="background:#253FE4;">
+      <div class="role-emoji">📋</div>
+      <div><h2>Claude for Project Management</h2><p>Planning, communication, reporting and coordination — all from chat without switching tools.</p></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">1</div><h4>Asana Tasks Directly from Chat</h4></div><p>Create tasks, set deadlines, define dependencies and retrieve project status — all via the Asana connector, without opening the app.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">2</div><h4>Project Context for the Entire Team</h4></div><p>Store briefing, roles, timelines and KPIs once as a chat project — all stakeholders start with the same knowledge, no re-reading needed.</p><div class="use-case-links"><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projects</a><a class="uc-link" onclick="sw(13);return false;">Tab 15 · Account Setup</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">3</div><h4>Status Reports & Project Updates</h4></div><p>Retrieve Asana data, scan Google Drive for current documents and automatically create a structured weekly or monthly report.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a><a class="uc-link" onclick="sw(17);return false;">Tab 17 · Scheduled Tasks</a></div></div>
+      </div>
+      <div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">4</div><h4>Prepare & Document Meetings</h4></div><p>Generate agenda from Asana tasks, structure meeting notes, document decisions in Notion and automatically create follow-up tasks.</p><div class="use-case-links"><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">5</div><h4>Automated Weekly Reports</h4></div><p>Set up scheduled task: every Friday at 4pm retrieve Asana status, summarise and prepare as Gmail draft — ready to send.</p><div class="use-case-links"><a class="uc-link" onclick="sw(17);return false;">Tab 17 · Scheduled Tasks</a><a class="uc-link" onclick="sw(7);return false;">Tab 08 · Connectors</a></div></div>
+        <div class="use-case"><div class="use-case-head"><div class="use-case-num">6</div><h4>Onboarding New Team Members</h4></div><p>Create an onboarding project with all relevant documents, processes and contacts as a chat project — new team member has immediate access to everything.</p><div class="use-case-links"><a class="uc-link" onclick="sw(4);return false;">Tab 05 · Projects</a><a class="uc-link" onclick="sw(11);return false;">Tab 13 · NETZ-BOT</a></div></div>
+      </div>
+    </div>
+    <div class="tip">→ Start with: <em>"Show me all open Asana tasks for [project] with a deadline this week. Create a daily agenda from them for today."</em></div>
+  </div>
+</div>
+
 </div><!-- /content -->
 
 <div class="nav-bar">
@@ -948,14 +1179,20 @@ const TABS = [
   {id:12, group:'c',    badge:'',       de:{label:'14 · Prompt-Tipps',         intro:'Tipps für <strong>effektive Prompts</strong>: Kontext geben, Rolle definieren, Format vorgeben, Klarheitsfragen nutzen.'}, en:{label:'14 · Prompt Tips',           intro:'Tips for <strong>effective prompts</strong>: provide context, define a role, specify format, use clarifying questions.'}},
   {id:13, group:'c',    badge:'',       de:{label:'15 · Account &amp; Team',   intro:'Wie jede Person ihren <strong>Account</strong> einrichtet und wie <strong>Team-Projekte</strong> optimal aufgesetzt und geteilt werden.'}, en:{label:'15 · Account &amp; Team',    intro:'How each person sets up their <strong>account</strong> and how <strong>team projects</strong> are optimally configured and shared.'}},
   {id:14, group:'c',    badge:'',       de:{label:'16 · Chat vs. Cowork',      intro:'Unterschied zwischen <strong>Chat-Projekt</strong> und <strong>Cowork-Plugin</strong>? Vergleich, Beispiele und Entscheidungshilfe.'}, en:{label:'16 · Chat vs. Cowork',       intro:'Difference between <strong>chat project</strong> and <strong>Cowork plugin</strong>? Comparison, examples and decision guide.'}},
-  {id:17, group:'c',    badge:'',       de:{label:'17 · Geplante Aufgaben',    intro:'Mit <strong>geplanten Aufgaben</strong> in Claude Cowork lassen sich Workflows zeitgesteuert automatisch ausführen.'}, en:{label:'17 · Scheduled Tasks',       intro:'With <strong>scheduled tasks</strong> in Claude Cowork, workflows can be executed automatically on a schedule.'}}
+  {id:17, group:'c',    badge:'',       de:{label:'17 · Geplante Aufgaben',    intro:'Mit <strong>geplanten Aufgaben</strong> in Claude Cowork lassen sich Workflows zeitgesteuert automatisch ausführen.'}, en:{label:'17 · Scheduled Tasks',       intro:'With <strong>scheduled tasks</strong> in Claude Cowork, workflows can be executed automatically on a schedule.'}},
+  {id:18, group:'d',    badge:'',       de:{label:'🎨 Designer',                intro:'Kuratierte Claude-Workflows für <strong>Designer</strong>: Visuals, Präsentationen, Prototypen und CI-konforme Outputs.'}, en:{label:'🎨 Designer',                intro:'Curated Claude workflows for <strong>designers</strong>: visuals, presentations, prototypes and CI-compliant outputs.'}},
+  {id:19, group:'d',    badge:'',       de:{label:'👨‍💻 Entwickler',              intro:'Kuratierte Claude-Workflows für <strong>Entwickler</strong>: Code, Security-Scans, Automatisierungen und MCP-Konnektoren.'}, en:{label:'👨‍💻 Developer',              intro:'Curated Claude workflows for <strong>developers</strong>: code, security scans, automations and MCP connectors.'}},
+  {id:20, group:'d',    badge:'',       de:{label:'📊 Berater & Analysten',     intro:'Kuratierte Claude-Workflows für <strong>Berater und Analysten</strong>: Recherche, Analysen, Präsentationen und Kundenkommunikation.'}, en:{label:'📊 Consultant & Analyst',    intro:'Curated Claude workflows for <strong>consultants and analysts</strong>: research, analyses, presentations and client communication.'}},
+  {id:21, group:'d',    badge:'',       de:{label:'📣 Marketing',               intro:'Kuratierte Claude-Workflows für <strong>Marketing</strong>: Content, Kampagnen, SEO, Social und Newsletter.'}, en:{label:'📣 Marketing',               intro:'Curated Claude workflows for <strong>marketing</strong>: content, campaigns, SEO, social and newsletters.'}},
+  {id:22, group:'d',    badge:'',       de:{label:'📋 Projektmanagement',       intro:'Kuratierte Claude-Workflows für <strong>Projektmanager</strong>: Planung, Kommunikation, Reporting und Koordination.'}, en:{label:'📋 Project Management',      intro:'Curated Claude workflows for <strong>project managers</strong>: planning, communication, reporting and coordination.'}}
 ];
 
 const TOTAL = TABS.length;
 const GROUPS = {
   a: TABS.filter(t => t.group === 'a'),
   b: TABS.filter(t => t.group === 'b'),
-  c: TABS.filter(t => t.group === 'c')
+  c: TABS.filter(t => t.group === 'c'),
+  d: TABS.filter(t => t.group === 'd')
 };
 
 let cur = 0;
@@ -984,7 +1221,7 @@ function sw(tabId) {
 
   // group buttons & subnav
   const grp = tab ? tab.group : null;
-  ['a','b','c'].forEach(g => {
+  ['a','b','c','d'].forEach(g => {
     document.getElementById('grp-btn-' + g).classList.toggle('active', g === grp && g !== 'news');
   });
 
